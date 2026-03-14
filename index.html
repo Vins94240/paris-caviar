@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Paris Caviar"/>
+<title>Paris Caviar</title>
+<link rel="apple-touch-icon" href="https://vins94240.github.io/paris-caviar/logo.jpg"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:#F0F6FF;color:#0D2A4A;padding-bottom:80px}
+
+/* HEADER */
+header{background:#fff;border-bottom:2px solid #A8D4F5;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(13,42,74,.08)}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-img{width:42px;height:42px;object-fit:contain}
+.logo-text{display:flex;flex-direction:column;line-height:1.1}
+.logo-text span:first-child{font-size:16px;font-weight:700;color:#0D2A4A;letter-spacing:.02em}
+.logo-text span:last-child{font-size:10px;font-weight:500;color:#5BA3D9;letter-spacing:.1em;text-transform:uppercase}
+#badge{background:#0D2A4A;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px}
+
+/* TABS */
+.tabs{display:flex;background:#fff;border-bottom:2px solid #A8D4F5;position:sticky;top:63px;z-index:19}
+.tab{flex:1;padding:12px 4px;text-align:center;font-size:13px;font-weight:600;color:#5BA3D9;border:none;background:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s}
+.tab.active{color:#0D2A4A;border-bottom:3px solid #0D2A4A;margin-bottom:-2px}
+
+/* PAGES */
+.page{display:none;padding:16px}.page.active{display:block}
+
+/* CARDS */
+.card{background:#fff;border:1.5px solid #C8E6FA;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(13,42,74,.06)}
+.card-title{font-size:14px;font-weight:700;color:#0D2A4A;margin-bottom:12px;border-bottom:1.5px solid #E8F4FD;padding-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+
+/* INPUTS */
+label{display:block;font-size:11px;font-weight:600;color:#5BA3D9;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+input[type=text],input[type=date],input[type=number]{width:100%;background:#F7FBFF;border:1.5px solid #C8E6FA;border-radius:8px;color:#0D2A4A;font-size:15px;padding:10px 12px;outline:none;-webkit-appearance:none;font-family:'Outfit',sans-serif}
+input:focus{border-color:#5BA3D9;background:#fff}
+input::placeholder{color:#A8C8E8}
+
+/* CLIENT AC */
+.cac{position:relative;margin-bottom:12px}
+.cac-drop{position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid #5BA3D9;border-top:none;border-radius:0 0 10px 10px;z-index:50;display:none;max-height:200px;overflow-y:auto;box-shadow:0 4px 12px rgba(13,42,74,.1)}
+.cac-drop.open{display:block}
+.cac-it{padding:10px 14px;border-bottom:1px solid #E8F4FD;cursor:pointer;font-size:14px}
+.cac-it:last-child{border:none}
+.cac-name{font-weight:600;color:#0D2A4A}
+.cac-sub{font-size:11px;color:#5BA3D9;margin-top:1px}
+
+/* HISTORIQUE */
+.hist{background:#EBF5FF;border:1.5px solid #A8D4F5;border-radius:12px;padding:12px 14px;margin-bottom:14px;display:none}
+.hist-hd{font-size:12px;font-weight:700;color:#0D2A4A;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.hist-hd button{background:#0D2A4A;border:none;color:#fff;border-radius:8px;font-size:11px;font-weight:700;padding:5px 12px;cursor:pointer;font-family:'Outfit',sans-serif}
+.hit{background:#fff;border:1.5px solid #C8E6FA;border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:.15s}
+.hit:last-child{margin-bottom:0}
+.hit:active,.hit:hover{border-color:#5BA3D9;background:#F7FBFF}
+.hit-top{display:flex;justify-content:space-between;align-items:flex-start}
+.hit-name{font-size:14px;font-weight:600;color:#0D2A4A}
+.hit-tot{font-size:13px;font-weight:700;color:#0D2A4A;margin-left:8px;white-space:nowrap}
+.hit-row2{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.hit-d{font-size:12px;color:#5BA3D9}
+.htag{font-size:10px;padding:2px 7px;border-radius:6px;font-weight:600}
+.hcut{background:#E8F4FD;color:#0D2A4A}
+.hsv{background:#D4EDFF;color:#1A6FA0}
+.hist-all{width:100%;padding:10px;background:#0D2A4A;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;margin-top:6px}
+
+/* PRODUCT AC */
+.pac{position:relative;margin-bottom:8px}
+.pac-drop{position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid #5BA3D9;border-top:none;border-radius:0 0 10px 10px;max-height:250px;overflow-y:auto;z-index:50;display:none;box-shadow:0 4px 12px rgba(13,42,74,.1)}
+.pac-drop.open{display:block}
+.pac-grp{font-size:10px;font-weight:700;color:#5BA3D9;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px 3px;background:#F0F6FF;position:sticky;top:0;border-bottom:1px solid #E8F4FD}
+.pac-it{padding:10px 12px;border-bottom:1px solid #E8F4FD;cursor:pointer;font-size:14px}
+.pac-it:last-child{border:none}
+.pac-it:active,.pac-it:hover{background:#F0F6FF}
+.pac-iname{color:#0D2A4A;font-weight:500}
+.pac-iprice{font-size:11px;color:#5BA3D9;margin-top:1px}
+.pac-sel{background:#EBF5FF;border:1.5px solid #5BA3D9;border-radius:8px;padding:8px 12px;margin-bottom:8px;display:none;position:relative;cursor:pointer}
+.pac-sname{font-size:14px;font-weight:700;color:#0D2A4A}
+.pac-sprice{font-size:12px;color:#5BA3D9;margin-top:2px}
+.pac-schange{font-size:10px;color:#A8C8E8;margin-top:2px}
+.pac-x{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:22px;color:#A8C8E8;cursor:pointer;padding:4px}
+
+/* QTY ROW */
+.qrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.utog{display:flex;border:1.5px solid #C8E6FA;border-radius:8px;overflow:hidden}
+.ubtn{flex:1;border:none;background:transparent;color:#A8C8E8;font-size:13px;font-weight:600;padding:9px 4px;cursor:pointer;font-family:'Outfit',sans-serif;transition:.15s}
+.ubtn.active{background:#0D2A4A;color:#fff}
+
+/* COUPES */
+.sect{display:flex;align-items:center;gap:10px;background:#F7FBFF;border:1.5px solid #C8E6FA;border-radius:10px;padding:10px 12px;cursor:pointer;margin-top:10px;user-select:none;transition:.15s}
+.sect.on{border-color:#5BA3D9;background:#EBF5FF}
+.sect-lbl{flex:1;font-size:13px;color:#0D2A4A;line-height:1.3}
+.sect-lbl small{display:block;font-size:10px;color:#A8C8E8;margin-top:1px}
+.sw{width:38px;height:22px;background:#C8E6FA;border-radius:11px;position:relative;transition:.2s;flex-shrink:0}
+.sw::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.sect.on .sw{background:#0D2A4A}
+.sect.on .sw::after{transform:translateX(16px)}
+.cut-panel{display:none;margin-top:8px;background:#fff;border:1.5px solid #C8E6FA;border-radius:10px;overflow:hidden}
+.cut-panel.open{display:block}
+.cut-grid{display:grid;grid-template-columns:1fr 1fr}
+.copt{display:flex;align-items:flex-start;gap:8px;padding:9px 10px;border-bottom:1px solid #E8F4FD;border-right:1px solid #E8F4FD;cursor:pointer;transition:.15s}
+.copt:nth-child(even){border-right:none}
+.copt:nth-last-child(-n+2){border-bottom:none}
+.copt input[type=checkbox]{width:16px;height:16px;accent-color:#0D2A4A;flex-shrink:0;margin-top:2px}
+.copt span{font-size:13px;color:#0D2A4A;line-height:1.3}
+.copt span small{display:block;font-size:10px;color:#A8C8E8}
+.copt.on{background:#EBF5FF}
+.cut-note{padding:8px 10px;border-top:1px solid #E8F4FD}
+
+/* LINE */
+.line{background:#fff;border:1.5px solid #C8E6FA;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 6px rgba(13,42,74,.05)}
+.line-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.line-num{font-size:11px;font-weight:700;color:#5BA3D9;text-transform:uppercase;letter-spacing:.1em}
+.btn-rm{background:#FFF0F0;border:1px solid #FFCDD2;color:#E05252;border-radius:6px;font-size:12px;padding:4px 10px;cursor:pointer;font-family:'Outfit',sans-serif}
+.ltot{display:flex;justify-content:space-between;padding:8px 0 0;border-top:1.5px solid #E8F4FD;margin-top:10px;font-size:14px}
+.ltot span:first-child{color:#5BA3D9;font-weight:500}
+.ltot span:last-child{font-weight:700;color:#0D2A4A;font-size:16px}
+.btn-add{width:100%;padding:13px;background:#EBF5FF;border:2px dashed #A8D4F5;border-radius:10px;color:#5BA3D9;font-size:14px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;margin-top:4px;transition:.15s}
+.btn-add:hover{background:#D4EDFF;border-color:#5BA3D9}
+
+/* SUMMARY */
+.summ{background:#0D2A4A;border-radius:14px;padding:16px 18px;margin-bottom:12px}
+.srow{display:flex;justify-content:space-between;padding:4px 0;font-size:14px;color:#A8C8E8}
+.srow.tot{border-top:1px solid rgba(255,255,255,.15);margin-top:8px;padding-top:10px;font-size:20px;font-weight:700;color:#fff}
+.srow.tot span:first-child{color:#A8D4F5}
+.btn-main{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;margin-bottom:10px;transition:.15s}
+.btn-save{background:#0D2A4A;color:#fff}
+.btn-save:active{background:#1A3D6B}
+.btn-mail{background:#5BA3D9;color:#fff}
+.btn-mail:active{background:#4A8EC4}
+
+/* ORDERS */
+.ocard{background:#fff;border:1.5px solid #C8E6FA;border-radius:12px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 6px rgba(13,42,74,.05)}
+.ocard-hd{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.oclient{font-weight:700;font-size:15px;color:#0D2A4A}
+.odate{font-size:11px;color:#5BA3D9;margin-top:2px}
+.otot{background:#EBF5FF;color:#0D2A4A;font-weight:700;font-size:14px;padding:4px 12px;border-radius:16px;border:1px solid #A8D4F5}
+.obody{padding:12px 14px;display:none;border-top:1.5px solid #E8F4FD}
+.obody.open{display:block}
+.oprod{padding:7px 0;border-bottom:1px solid #E8F4FD;font-size:13px}
+.oprod:last-of-type{border:none}
+.oprow{display:grid;grid-template-columns:2fr .7fr .8fr .9fr;gap:4px;color:#0D2A4A}
+.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.tag{font-size:10px;padding:2px 7px;border-radius:8px;font-weight:600}
+.tcut{background:#E8F4FD;color:#0D2A4A}
+.tsv{background:#D4EDFF;color:#1A6FA0}
+.oacts{display:flex;gap:6px;margin-top:10px}
+.oact{flex:1;padding:8px 4px;border-radius:8px;font-size:12px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;border:none;text-align:center}
+.a-copy{background:#EBF5FF;color:#0D2A4A}
+.a-mail{background:#D4EDFF;color:#1A6FA0}
+.a-del{background:#FFF0F0;color:#E05252}
+
+/* TARIF */
+.srch{margin-bottom:12px}
+.tgroup{margin-bottom:14px}
+.tgroup-title{font-size:11px;font-weight:700;color:#5BA3D9;text-transform:uppercase;letter-spacing:.1em;padding:6px 8px;border-bottom:2px solid #C8E6FA;margin-bottom:6px;background:#F0F6FF;border-radius:6px 6px 0 0}
+.titem{display:flex;justify-content:space-between;align-items:center;padding:8px 8px;border-radius:6px;font-size:13px}
+.titem:nth-child(odd){background:#F7FBFF}
+.tname{flex:1;color:#0D2A4A}
+.tunit{color:#A8C8E8;font-size:11px;margin-right:6px}
+.tprice{font-weight:700;color:#0D2A4A}
+.tnc{color:#A8C8E8;font-style:italic;font-size:12px}
+.empty{text-align:center;padding:50px 20px;color:#A8C8E8;font-size:15px;line-height:1.6}
+
+/* CALC PANEL */
+.calc-panel{display:none;margin-top:8px;background:#EBF5FF;border:1.5px solid #A8D4F5;border-radius:10px;padding:12px}
+.calc-panel.open{display:block}
+.calc-title{font-size:11px;font-weight:700;color:#0D2A4A;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.calc-result{background:#fff;border:1.5px solid #C8E6FA;border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center}
+.calc-result-lbl{font-size:12px;color:#5BA3D9}
+.calc-result-val{font-size:17px;font-weight:700;color:#0D2A4A}
+.calc-apply{width:100%;margin-top:8px;padding:9px;background:#0D2A4A;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif}
+.calc-hint{font-size:11px;color:#5BA3D9;margin-top:6px;text-align:center;line-height:1.5}
+.btn-calc{display:inline-flex;align-items:center;gap:5px;margin-top:6px;background:#EBF5FF;border:1.5px solid #A8D4F5;border-radius:7px;color:#5BA3D9;font-size:12px;font-weight:600;padding:5px 10px;cursor:pointer;font-family:'Outfit',sans-serif}
+.btn-calc.active{background:#D4EDFF;border-color:#5BA3D9;color:#0D2A4A}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#0D2A4A;color:#fff;padding:10px 22px;border-radius:24px;font-size:14px;font-weight:600;box-shadow:0 4px 20px rgba(13,42,74,.3);transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:999;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.err{background:#E05252}
+.toast.info{background:#5BA3D9}
+
+/* PRODUCT AUTOCOMPLETE */
+.ac-wrap{position:relative;margin-bottom:8px}
+.ac-results{position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid #5BA3D9;border-top:none;border-radius:0 0 10px 10px;max-height:260px;overflow-y:auto;z-index:50;display:none;box-shadow:0 4px 12px rgba(13,42,74,.12)}
+.ac-results.open{display:block}
+.ac-group{font-size:10px;font-weight:700;color:#5BA3D9;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px 3px;background:#F0F6FF;position:sticky;top:0;border-bottom:1px solid #E8F4FD}
+.ac-item{padding:10px 12px;border-bottom:1px solid #E8F4FD;cursor:pointer;font-size:14px}
+.ac-item:last-child{border:none}
+.ac-item:active,.ac-item:hover{background:#EBF5FF}
+.ac-item-name{color:#0D2A4A;font-weight:500}
+.ac-item-price{font-size:11px;color:#5BA3D9;margin-top:2px}
+.ac-selected{background:#EBF5FF;border:1.5px solid #5BA3D9;border-radius:8px;padding:8px 36px 8px 12px;margin-bottom:8px;display:none;position:relative;cursor:pointer}
+.ac-sel-name{font-size:14px;font-weight:700;color:#0D2A4A}
+.ac-sel-price{font-size:12px;color:#5BA3D9;margin-top:2px}
+.ac-sel-change{font-size:10px;color:#A8C8E8;margin-top:2px}
+.ac-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:22px;color:#A8C8E8;cursor:pointer;padding:4px}
+
+/* PRODUCT HISTORY HINT */
+.prod-hist{background:#EBF5FF;border:1px solid #A8D4F5;border-radius:6px;padding:6px 10px;margin-top:4px;display:none;font-size:12px;color:#0D2A4A;cursor:pointer}
+.prod-hist-title{font-weight:700;color:#5BA3D9;font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.prod-hist-row{display:flex;justify-content:space-between;gap:8px}
+.prod-hist-apply{font-size:11px;color:#5BA3D9;margin-top:4px;text-align:right}
+
+/* VOICE BUTTON */
+.voice-btn{display:inline-flex;align-items:center;gap:5px;background:#EBF5FF;border:1.5px solid #A8D4F5;border-radius:8px;color:#5BA3D9;font-size:13px;font-weight:600;padding:8px 14px;cursor:pointer;font-family:'Outfit',sans-serif;width:100%;justify-content:center;margin-bottom:8px;transition:.15s}
+.voice-btn.listening{background:#FFE8E8;border-color:#E05252;color:#E05252;animation:pulse 1s infinite}
+.voice-btn.voice-client{margin-bottom:6px;margin-top:4px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* STATUS */
+.status-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.status-attente{background:#FFF3CD;color:#856404;border:1px solid #FFECB5}
+.status-prep{background:#D4EDFF;color:#0D5C96;border:1px solid #A8D4F5}
+.ocard-status{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-top:1px solid #E8F4FD;background:#F7FBFF}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <img src="https://vins94240.github.io/paris-caviar/logo.jpg" class="logo-img" alt="Paris Caviar"/>
+    <div class="logo-text">
+      <span>Paris Caviar</span>
+      <span>Marche de Rungis</span>
+    </div>
+  </div>
+  <div id="badge">0 commande</div>
+</header>
+<div class="tabs">
+  <button class="tab active" onclick="goTab('new',this)">+ Nouvelle</button>
+  <button class="tab" onclick="goTab('list',this)">Commandes</button>
+  <button class="tab" onclick="goTab('tarif',this)">Tarifs</button>
+</div>
+
+<div class="page active" id="page-new">
+  <div class="card">
+    <div class="card-title">Informations</div>
+    <label>Nom du client</label>
+    <div class="cac-wrap" id="CAC">
+      <button class="voice-btn voice-client" id="voiceClientBtn" onclick="startVoice('client')">🎤 Dicter le nom du client</button>
+      <input type="text" id="clientName" placeholder="Taper pour rechercher ou nouveau client..."
+        autocomplete="off" autocorrect="off" oninput="onClientInput()" onfocus="onClientInput()"/>
+      <div class="cac-drop" id="CAC_DROP"></div>
+    </div>
+    <div style="height:12px"></div>
+    <label>Date de livraison</label>
+    <input type="date" id="delivDate"/>
+  </div>
+
+  <!-- HISTORIQUE COMMANDES CLIENT -->
+  <div class="hist-banner" id="histBanner">
+    <div class="hist-title">
+      <span id="histTitle">Derniere commande</span>
+    </div>
+    <div id="histItems"></div>
+    <button class="hist-apply-all" onclick="applyAllHistory()">Reprendre la derniere commande</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Produits</div>
+    <div id="lines"></div>
+    <button class="btn-add" onclick="addLine()">+ Ajouter un produit</button>
+  </div>
+  <div class="summary">
+    <div class="srow"><span>Nombre de lignes</span><span id="sCount">0</span></div>
+    <div class="srow tot"><span>Total HT</span><span id="sTotal">0,00 e</span></div>
+  </div>
+  <button class="btn-main btn-save" onclick="saveOrder()">Valider et enregistrer</button>
+  <button class="btn-main btn-mail" onclick="mailOrder()">Envoyer a commandes@paris-caviar.fr</button>
+</div>
+
+<div class="page" id="page-list">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div style="font-size:18px;font-weight:700">Commandes</div>
+    <button class="btn-rm" onclick="clearAll()">Tout effacer</button>
+  </div>
+  <div class="srch"><input type="text" placeholder="Rechercher un client..." oninput="showOrders(this.value)"/></div>
+  <div id="orderList"></div>
+</div>
+
+<div class="page" id="page-tarif">
+  <div style="font-size:18px;font-weight:700;margin-bottom:4px">Tarifs Semaine 11</div>
+  <div style="font-size:12px;color:#8A9BB0;margin-bottom:12px">Prix HT/kg sauf mention</div>
+  <div class="srch"><input type="text" placeholder="Rechercher un produit..." oninput="showTarif(this.value)"/></div>
+  <div id="tarifList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var CAT = [
+["Poissons PB","Bar Cotier ANE 500g-1kg",18.9,"kg"],
+["Poissons PB","Bar Cotier ANE 1-2kg",19.8,"kg"],
+["Poissons PB","Bar Cotier ANE 2-3kg",21.9,"kg"],
+["Poissons PB","Bar Cotier ANE 3-4",32.8,"kg"],
+["Poissons PB","Dorade Royale 2-3 Sauvage PB",0,"kg"],
+["Poissons PB","Dorade Royale 3-4 Sauvage PB",0,"kg"],
+["Poissons PB","Barbue 1-2 PB ANE",32.5,"kg"],
+["Poissons PB","Barbue 2-3 PB ANE",38.9,"kg"],
+["Poissons PB","Bouille ANE melange poisson x10",10.6,"kg"],
+["Poissons PB","Cabillaud SKREI 4-6 VDK",18.9,"kg"],
+["Poissons PB","Cabillaud ANE 6-8 VDK",0,"kg"],
+["Poissons PB","Merlu 4-5 PB Bretagne",11.9,"kg"],
+["Poissons PB","Encornet ANE 300-500 x3",26.8,"kg"],
+["Poissons PB","Encornet ANE 100-200 x3",24.9,"kg"],
+["Poissons PB","Joue de lotte x3kg",29,"kg"],
+["Poissons PB","Lotte 1-2 ANE",24.9,"kg"],
+["Poissons PB","Lotte 2-4 ANE P.Bateau",29.9,"kg"],
+["Poissons PB","Lotte 4-6 ANE P.Bateau",29.95,"kg"],
+["Poissons PB","Merlan de ligne 300-500",13.2,"kg"],
+["Poissons PB","Mulet Noir 1-2 Vendee",16.3,"kg"],
+["Poissons PB","Sebaste sauvage 700+ EXTRA",12.9,"kg"],
+["Poissons PB","Saumonette ANE x6",9.6,"kg"],
+["Poissons PB","Dorade Sauvage grise 600-800",12.9,"kg"],
+["Poissons PB","Supion entier dcgl ANE x3",12.95,"kg"],
+["Poissons PB","Thon Albacore VDK extra 70-80",18.2,"kg"],
+["Poissons PB","Perroquet 2-4 x2 pieces",17.6,"kg"],
+["Poissons PB","Dente rose 4+",22.4,"kg"],
+["Poissons PB","Vivanneau 3-6",23.8,"kg"],
+["Poissons PB","Espadon VDK",17.9,"kg"],
+["Poissons PB","Merou 10-20",23.8,"kg"],
+["Poissons PB","Eperlan",0,"kg"],
+["Poissons entiers","Lieu Jaune 2-4 PB Bretagne",16.5,"kg"],
+["Poissons entiers","Lieu Jaune 5+ LIGNE EXTRA",24.9,"kg"],
+["Poissons entiers","Lieu Noir 2-4",12.8,"kg"],
+["Poissons entiers","Carrelet 500-700 x6",19.9,"kg"],
+["Poissons entiers","Poulpe frais 2-3",19.5,"kg"],
+["Poissons entiers","Aile de raie PELEE 0.7-1 x6 EXTRA",17.8,"kg"],
+["Poissons entiers","Aile de raie 1.5+ AP Bretagne",17.8,"kg"],
+["Poissons entiers","Fletan Sterling 2-3",19.9,"kg"],
+["Poissons entiers","Carrelet 1-2 LIGNE EXTRA",15.4,"kg"],
+["Poissons entiers","Sole 300-400 ANE PB",33,"kg"],
+["Poissons entiers","Sole 400-500 ANE PB",34.5,"kg"],
+["Poissons entiers","Sole 500-600 ANE PB",34.5,"kg"],
+["Poissons entiers","Sole 600-800 ANE PB",36,"kg"],
+["Poissons entiers","Saint Pierre 800-1000 ANE",26.3,"kg"],
+["Poissons entiers","Saint Pierre 1-2 ANE",19.8,"kg"],
+["Poissons entiers","Saint Pierre 2-3",32.5,"kg"],
+["Poissons entiers","Turbot 1-2 ANE",39.9,"kg"],
+["Poissons entiers","Turbot 2-3 ANE",49.8,"kg"],
+["Poissons entiers","Turbot 3-4 ANE",58.6,"kg"],
+["Poissons entiers","Turbot 4-6 ANE",76.3,"kg"],
+["Poissons entiers","Turbot 9+ ANE",0,"kg"],
+["Poissons entiers","Rouget Barbet 200-300 vendee",29.9,"kg"],
+["Poissons entiers","Rouget Grondin FR 1+",0,"kg"],
+["Poissons entiers","Maigre 4-5 EXTRA",19.9,"kg"],
+["Poissons entiers","Saumon de fontaine 800+ France",0,"kg"],
+["Poissons entiers","Saumon Ecosse 7-8 LR IKEJIME",18.9,"kg"],
+["Poissons entiers","Saumon Ecosse 5-6 SUP",17.5,"kg"],
+["Poissons entiers","Saumon Irlande 5-6 BIO",22,"kg"],
+["Poissons entiers","Saumon Norvege 5-6",15.9,"kg"],
+["Poissons entiers","Maquereaux 3-500 x6",14.9,"kg"],
+["Poissons entiers","Sardine Bretonne x4",6.9,"kg"],
+["Filets","Dos de Lieu noir 300+ SP x3",17.95,"kg"],
+["Filets","Dos cabillaud MSC 400+ SP x3",28.4,"kg"],
+["Filets","Dos cabillaud 800+ AP",39.9,"kg"],
+["Filets","Anneau encornet saumure x5",15.9,"kg"],
+["Filets","Lamelle encornet saumure x5",12.95,"kg"],
+["Filets","Tentacule encornet saumure x5",12.95,"kg"],
+["Filets","Filet Eglefin PAP x3",14.9,"kg"],
+["Filets","Coeur Espadon dec sv",19.9,"kg"],
+["Filets","Filet Lieu Jaune AP x5",28.5,"kg"],
+["Filets","Filet de Julienne 200+ SP x6",16.8,"kg"],
+["Filets","Filet Lieu noir 200-400 SP x5",14.95,"kg"],
+["Filets","Filet Lingue bleue SP EXTRA x5",16.8,"kg"],
+["Filets","Filet de Merlan PAP x3",16.9,"kg"],
+["Filets","Filet de Loup 150+ sp x3",18.9,"kg"],
+["Filets","Filet de Merlu AP x5",28.9,"kg"],
+["Filets","Filet de Carrelet sp x3",16.9,"kg"],
+["Filets","Filet de Perche x3",14.8,"kg"],
+["Filets","Filet de Sardine ap x3",12.5,"kg"],
+["Filets","Filet Saumon Ecosse sup AP trim B",23.5,"kg"],
+["Filets","Filet Saumon Ecosse LR AP trim B",25.5,"kg"],
+["Filets","Filet Saumon Norvege AP trim B",18.9,"kg"],
+["Filets","Filet de Maquereaux AP",19.9,"kg"],
+["Filets","Filet de Tacaud SP x3",15.9,"kg"],
+["Filets","Filet Rouget Grondin AP x3",11.9,"kg"],
+["Filets","Preparation longe thon dec",17.9,"kg"],
+["Filets","Longe Thon Sashimi dec",29.9,"kg"],
+["Filets","Coeur Thon Albacore SV",32,"kg"],
+["Filets","Filet truite FR 200-400 AP x4",15.9,"kg"],
+["Filets","Filet Cabillaud 1kg+ AP",24.6,"kg"],
+["Filets","Filet de Bar 160-180 AP x5",26.8,"kg"],
+["Filets","Filet de Dorade 160-180 AP x5",24.6,"kg"],
+["Congele","Gambas Black Tiger 4-6 800gr",29.8,"bt"],
+["Congele","Gambas Black Tiger 6-8 800gr",22.5,"bt"],
+["Congele","Gambas Black Tiger 8-12 800gr",17.9,"bt"],
+["Congele","Gambas Black Tiger 16-20 800gr",13.9,"bt"],
+["Congele","Gambas Black Tiger 21-30 800gr",12.9,"bt"],
+["Congele","Queue crevette Decor SC 8-12 800gr",18.9,"bt"],
+["Congele","Queue crevette Decor SC 16-20 800gr",16.9,"bt"],
+["Congele","Queue crevette Decor SC 21-25 800gr",16.9,"bt"],
+["Congele","Queue Langouste 450gr x4.5kg",79.8,"bt"],
+["Congele","Fish Chips 130-160gr x5kg",10.9,"bt"],
+["Congele","Aile de Raie 450-900 USA x5kg",13.9,"bt"],
+["Congele","Tentacule poulpe cuite 70-120 x6kg",44.9,"bt"],
+["Congele","Poulpe 2-3 congele Espagne x14",16.9,"bt"],
+["Congele","Tube encornet U5 x10 x800gr",13.9,"bt"],
+["Congele","Thon Saku x10kg",39.75,"bt"],
+["Congele","Seiche 20-40 x10",14.9,"bt"],
+["Congele","Calamar Romaine 6x1",9.9,"bt"],
+["Congele","Escargot EXTRA GROS x4DZ 7 sachets",38.6,"bt"],
+["Congele","Escargot BBG x8DZ colis 7 sachets",52,"bt"],
+["Congele","Crevettes Torpedo 10x700gr",16.9,"bt"],
+["Congele","Longe thon Albacore surgele x6kg",18.5,"bt"],
+["Congele","Cuisses de Grenouille 6-8 10x800gr",14.9,"bt"],
+["Congele","Filet black cod MSC AP 600-800",36,"bt"],
+["Congele","Filet de Seriole AP Australie 10kg",29.8,"bt"],
+["Congele","Filet St Pierre AP 150-200gr 0.800 x5",15.5,"bt"],
+["Congele","Filet Rouget IQF 80-120 x10",17.9,"bt"],
+["Congele","KING CRABE 0.8-1.2 x5kg",127,"bt"],
+["Congele","Cocktail Fruits de mer 10x800gr",12.8,"bt"],
+["Congele","Calamar entier de Californie USA x1kg",13.8,"bt"],
+["Congele","Friture eperlan 10x1",9.2,"bt"],
+["Congele","Petit Calamar PRE FRIT x8kg",14.95,"bt"],
+["Eau douce","Sandre 2-4 extra",18.9,"kg"],
+["Eau douce","Omble Chevalier 600-800",17.9,"kg"],
+["Eau douce","Brochet 2-4",15.6,"kg"],
+["Eau douce","Truite France 2-3",16.9,"kg"],
+["Eau douce","Truite portion 250-300 videe x3",12.8,"kg"],
+["Eau douce","Truite 3-4 Ecosse",16.9,"kg"],
+["Elevage","Bar 300-400 x17 pieces ASC",12.9,"kg"],
+["Elevage","Bar 400-600 x12 pieces ASC",14.9,"kg"],
+["Elevage","Bar 600-800 x9 pieces ASC",15.1,"kg"],
+["Elevage","Bar 800-1000 x10 pieces ASC",17.9,"kg"],
+["Elevage","Bar 1-1.5 x9 pieces ASC",20.9,"kg"],
+["Elevage","Bar 2-3 Esp",28.9,"kg"],
+["Elevage","Dorade 300-400 x17 pieces ASC",12.9,"kg"],
+["Elevage","Dorade 400-600 x12 pieces ASC",13.9,"kg"],
+["Elevage","Dorade 600-800 x9 pieces ASC",14.9,"kg"],
+["Elevage","Dorade 800-1000 x6 pieces ASC",16.2,"kg"],
+["Elevage","Sole elevage 400-500",35.9,"kg"],
+["Elevage","Sole elevage 500-600",35.9,"kg"],
+["Elevage","Sole elevage 600-800",0,"kg"],
+["Elevage","Turbot elevage 1-1.5",24.9,"kg"],
+["Elevage","Turbot elevage 2-3",21.9,"kg"],
+["Elevage","Turbot elevage 3-4",32.1,"kg"],
+["Elevage","BAR DORADE CANNES 300-400 x6kg",14.9,"kg"],
+["Elevage","BAR DORADE CANNES 400-600 x6kg",15.9,"kg"],
+["Elevage","BAR DORADE CANNES 600-800 x6kg",17.9,"kg"],
+["Elevage","BAR DORADE CANNES 800-1000 x6kg",19.9,"kg"],
+["Elevage","BAR DORADE CANNES 1-1.5 x6kg",24.9,"kg"],
+["Elevage","Filet Bar Dorade Cannes 220-240",36.8,"kg"],
+["Elevage","Filet Bar Dorade Cannes 120-140",29.9,"kg"],
+["Elevage","Filet Bar Dorade Cannes 160-180",32.9,"kg"],
+["Coquillages","Amande 15-25p FR x3",3.9,"kg"],
+["Coquillages","Araignees de mer 600-800 FR x10",11.3,"kg"],
+["Coquillages","Bigorneaux gros ANE x5",12.9,"kg"],
+["Coquillages","Bigorneaux Jumbo ANE x5",14.1,"kg"],
+["Coquillages","Bulot vivant FR x6",14.95,"kg"],
+["Coquillages","Bulot cuit FR x3",14.95,"kg"],
+["Coquillages","Clams moyen ANE x3",0,"kg"],
+["Coquillages","Coque FR x3 40-55",12.8,"kg"],
+["Coquillages","Couteaux 15-20p x3",12.8,"kg"],
+["Coquillages","Oursin Islande x3",26.9,"kg"],
+["Coquillages","Crabe Vert Etrilles x5",9.9,"kg"],
+["Coquillages","Ecrevisse Pattes blanche 16-20 x5",0,"kg"],
+["Coquillages","Ecrevisse Pattes blanche 20-30 x3",0,"kg"],
+["Coquillages","Moule PAC MSC Hollande 6x2kg",6.9,"kg"],
+["Coquillages","Moules Espagne x3",6.9,"kg"],
+["Coquillages","Moules Bouchot x5",6.9,"kg"],
+["Coquillages","Passe Pierre Salicorne",0,"kg"],
+["Coquillages","Palourde M x3",22.5,"kg"],
+["Coquillages","Palourde G x3",27.8,"kg"],
+["Coquillages","Palourde TG x3",29.6,"kg"],
+["Coquillages","Praire",12.5,"kg"],
+["Coquillages","Bigorneaux cuit gros x3",16,"kg"],
+["Coquillages","Tourteaux vivant 600-800 x6",10.55,"kg"],
+["Coquillages","Tourteaux vivant 400-600 x6",9.55,"kg"],
+["Coquillages","Crevette grise cuite x3kg",29.8,"kg"],
+["Homard","Homard ANO 400-600",35.5,"kg"],
+["Homard","Homard ANO 600-800",35.5,"kg"],
+["Homard","Homard ANO 800-1000",34.9,"kg"],
+["Homard","Homard Europe 400-600",69.9,"kg"],
+["Homard","Homard Europe 600-800",69.9,"kg"],
+["Homard","Homard Euro EPT -700",58,"kg"],
+["Homard","Tete Homard Americain cru cgl x5kg",9.9,"kg"],
+["Langouste","Langouste rouge vivante 1.3-1.8",127.3,"kg"],
+["Langouste","Langouste rouge vivante 1-1.2",127.3,"kg"],
+["Langoustines","Langoustine Ecosse 5-9 x3",38.5,"kg"],
+["Langoustines","Langoustine Ecosse 10-15 x3",28.9,"kg"],
+["Langoustines","Langoustine Ecosse 16-20 x3",22.6,"kg"],
+["Langoustines","Langoustine Ecosse 20-30 x3",16.5,"kg"],
+["Langoustines","Langoustine vivante 8-12 Ecosse",46,"kg"],
+["Langoustines","Crevette cuite Equateur 40-60 x2",13.9,"kg"],
+["Langoustines","Crevette cuite Equateur 30-40 x2",14.9,"kg"],
+["Langoustines","Crevette cuite Equateur 20-30 x2",16.9,"kg"],
+["Langoustines","Crevette cuite Madagascar LR 40-60 x2",33,"kg"],
+["Langoustines","Crevette cuite Madagascar LR 30-40 x2",37,"kg"],
+["Langoustines","Crevette cuite Madagascar LR 20-30 x2",40.85,"kg"],
+["Langoustines","Langoustine 17-20 crue surg 6x800gr",17.8,"kg"],
+["Langoustines","Langoustine 13-16 crue surg 6x800gr",22.6,"kg"],
+["Cuissons","Tourteaux cuits 600-800 x6",17.5,"kg"],
+["Cuissons","Tourteaux cuits 400-600 x6",17.5,"kg"],
+["Cuissons","Pince tourteaux cuite 12-20 x2",26.4,"kg"],
+["Cuissons","Pince tourteaux cuite 8-12 x2",29.5,"kg"],
+["Cuissons","Pince tourteaux cuite 4-8 x2",32,"kg"],
+["Cuissons","Araignees cuites coupees",13,"kg"],
+["Cuissons","Homard europ 4-600 cuits surg",73.2,"kg"],
+["Cuissons","Langoustine 10-15 cuites surg",10,"kg"],
+["Cuissons","Langouste cuite Caraibe 630-690 x10",38.25,"kg"],
+["Saint Jacques","Coquille St Jacques Dieppe M x12",6.95,"kg"],
+["Saint Jacques","Coquille St Jacques G x12",9.95,"kg"],
+["Saint Jacques","Noix St Jacques Fr extra ac x2",36,"kg"],
+["Saint Jacques","Noix St Jacques Fr 3-4 ac x2",44,"kg"],
+["Saint Jacques","Noix Saint Jacques Ecosse AC x2",39,"kg"],
+["Saint Jacques","Pre Noix Saint Jacques 10-20 US",52,"kg"],
+["Saint Jacques","Pre Noix Saint Jacques 10-20 Japon",49,"kg"],
+["Algues","Dulse x1kg",14.9,"kg"],
+["Algues","Haricot de mer x1kg",21.5,"kg"],
+["Algues","Kombu royal x1kg",21.5,"kg"],
+["Algues","Wakame x1kg",14.9,"kg"],
+["Algues","Melange 3 algues x1kg",15.9,"kg"],
+["Algues","Tartare algues x1kg",29.8,"kg"],
+["Algues","CITRON CAVIAR",140,"kg"],
+["Salaison","Saumon fume Ecosse Entier 1.8-2.2",45,"kg"],
+["Salaison","Saumon fume Ecosse Tr MAIN 1.7-2.2",49.9,"kg"],
+["Salaison","Saumon fume tranche machine",39.9,"kg"],
+["Salaison","Chutes Saumon fume sachet 1kg",27.9,"kg"],
+["Salaison","Coeur de Saumon fume Ecosse 300gr",61,"pc"],
+["Salaison","Plaques traiteurs Ecosse 6tr 400gr",25,"pc"],
+["Salaison","Saumon gravlax Ecosse TR",42.9,"kg"],
+["Salaison","Saumon BIO fume Ecosse TR 1.7-2.2",55.9,"kg"],
+["Salaison","Espadon fume SV",49.9,"kg"],
+["Salaison","Thon fume SV",40.6,"kg"],
+["Salaison","Filet maquereaux poivre x2kg",19.9,"kg"],
+["Salaison","Filet truite fumee 600-800",48,"kg"],
+["Salaison","Fletan fume Tranche",46.7,"kg"],
+["Salaison","Filet anguille fumee 100gr",11.5,"pc"],
+["Salaison","Haddock G x3kg JC David",34.9,"kg"],
+["Salaison","Haddock M x3kg JC David",32.9,"kg"],
+["Salaison","Rollmopps x1.6kg",19.95,"kg"],
+["Salaison","Blinis x4 mini x16",4.8,"pc"],
+["Salaison","Oeuf cabillaud fume sv",55.6,"kg"],
+["Salaison","Poulpe nature 1kg",28.9,"kg"],
+["Salaison","Salade Calamars huile x1kg",19.9,"kg"],
+["Salaison","Salade fruits de mer x1kg",19.9,"kg"],
+["Salaison","Filet Hareng huile x2kg",18.9,"kg"],
+["Salaison","Filet hareng doux sv 1kg",16.8,"kg"],
+["Salaison","Crevette decortiquee Moyen 200-300",16.9,"kg"],
+["Salaison","Crevette decortiquee Grosse 100-200",18.9,"kg"],
+["Salaison","Crevette decortiquee SUPER 60-90",28.8,"kg"],
+["Salaison","Crevette decortiquee a lail",36,"kg"],
+["Salaison","Cocktail fruit mer Saumure 1.6kg",15.9,"kg"],
+["Salaison","Queue ecrevisse 1.6kg",31.5,"kg"],
+["Salaison","Hareng Arenkha 100gr",16.5,"pc"],
+["Salaison","Hareng Arenkha 940gr",70.8,"pc"],
+["Salaison","Oeufs de lump noir rouge 100gr",6.8,"pc"],
+["Salaison","Oeufs de mulet Poutargue 150-200",127,"pc"],
+["Salaison","Oeufs de saumon Hard Shell 100gr",18.9,"pc"],
+["Salaison","Oeufs de saumon Hard Shell 500gr",86.6,"pc"],
+["Salaison","Oeuf de truite 500gr",49.6,"pc"],
+["Salaison","Oeufs de truite 100gr",14.8,"pc"],
+["Salaison","Tobiko Orange Wasabi 80gr",13.9,"pc"],
+["Salaison","Quenelle brochet x2 240gr",6.9,"pc"],
+["Salaison","Tarama premium 70% 90gr",6.3,"pc"],
+["Salaison","Tarama premium 70% 500gr",27.6,"pc"],
+["Salaison","Tarama corail oursin 1kg",23.9,"kg"],
+["Salaison","Tarama crabe 1kg",23.9,"kg"],
+["Salaison","Tarama rose 1kg",17.5,"kg"],
+["Salaison","Tarama blanc 1kg",17.5,"kg"],
+["Salaison","Surimi rouleau 2kg",13.5,"kg"],
+["Salaison","Surimi miette 500gr",13.5,"pc"],
+["Salaison","Filet cabillaud facon Fish Chips 800gr",21.5,"pc"],
+["Salaison","Brandade Morue 4kg",15.9,"kg"],
+["Salaison","Miette de morue salee s-aretes x5kg",17.6,"kg"],
+["Salaison","Filet morue salee 400-700gr x5kg",24.1,"kg"],
+["Salaison","Filet sardine basilic x800gr",15.8,"pc"],
+["Salaison","Filet anchois marine huile x800gr",15.5,"pc"],
+["Salaison","Filet anchois marine provencale x800gr",15.5,"pc"],
+["Salaison","Anchois Sel Perou boite fer 4-4",21,"pc"],
+["Salaison","Anguille fumee entiere 800-1kg",60,"kg"],
+["Salaison","Coque dec sat x1kg",31,"kg"],
+["Salaison","Moule dec sat x1kg",19.8,"kg"],
+["Salaison","Mini sardine huile olive 130gr x24",5.8,"pc"],
+["Salaison","Encre seiche pot 500ml",29.5,"pc"],
+["Salaison","Encre seiche x50 sachets",15.9,"pc"],
+["Salaison","Soupe de poisson 85cl x6",7.9,"bt"],
+["Salaison","Soupe de poisson 85cl Hennequin x6",8.9,"bt"],
+["Salaison","Rouille 100gr x12",3.9,"bt"],
+["Salaison","Salicorne pot 85cl",10.9,"pc"],
+["Salaison","Bisque de homard 85cl x6",8.8,"bt"],
+["Salaison","Chair Crabe past ANE 454gr x6",26.6,"bt"],
+["Salaison","Pinces Tourteaux cuites 8-12 x2kg",39.6,"kg"],
+["Salaison","Chair de tourteaux 100% x500gr",115,"pc"],
+["Salaison","Chair araignee x500gr x10",115,"pc"],
+["Salaison","Crevette grise cuit jumbo sa 1kg",34.9,"kg"],
+["Salaison","Corail oursin 120gr",25.6,"pc"],
+["Salaison","Tarama truffe 500gr",16.9,"kg"],
+["Salaison","Tarama truffe 100gr",4.9,"pc"],
+["Salaison","Chair escargot bte 4-4 8dz TG",24.6,"bt"],
+["Salaison","Panaché 4 Algues 1kg",22,"kg"],
+["Salaison","Accras morue 1kg",17.9,"kg"],
+["Caviar","Caviar Baeri du Bassin 30gr",45,"pc"],
+["Caviar","Caviar Baeri du Bassin 50gr",75,"pc"],
+["Caviar","Caviar Baeri du Bassin 100gr",150,"pc"],
+["Caviar","Caviar Baeri du Bassin 200gr",300,"pc"],
+["Caviar","Caviar Oscietra 30gr",31,"pc"],
+["Caviar","Caviar Oscietra 50gr",52,"pc"],
+["Caviar","Caviar Oscietra 100gr",103,"pc"],
+["Caviar","Caviar Oscietra 200gr",206,"pc"],
+["Caviar","Caviar Beluga Imperial 30gr",57,"pc"],
+["Caviar","Caviar Beluga Imperial 50gr",95,"pc"],
+["Caviar","Caviar Beluga Imperial 100gr",190,"pc"],
+["Caviar","Caviar Beluga Imperial 200gr",380,"pc"],
+["Huitres","Fines de Claire N4 (48 pcs)",29.9,"bt"],
+["Huitres","Fines de Claire N3 (48 pcs)",38.8,"bt"],
+["Huitres","Fines de Claire N3 (96 pcs)",64.5,"bt"],
+["Huitres","Fines de Claire N3 (180 pcs)",128,"bt"],
+["Huitres","Fines de Claire N2 (48 pcs)",49.9,"bt"],
+["Huitres","Fines de Claire N2 (96 pcs)",89.5,"bt"],
+["Huitres","Speciales N4 (48 pcs)",59.9,"bt"],
+["Huitres","Speciales N4 (96 pcs)",99.9,"bt"],
+["Huitres","Speciales N3 (48 pcs)",76.5,"bt"],
+["Huitres","Speciales N3 (96 pcs)",135,"bt"],
+["Huitres","Speciales N2 (48 pcs)",82.5,"bt"],
+["Huitres","Speciales N2 (96 pcs)",155,"bt"],
+["Huitres","Cancale N3 (48 pcs)",36.5,"bt"],
+["Huitres","Cancale N3 (96 pcs)",69.9,"bt"],
+["Huitres","Cancale N3 (180 pcs)",129.9,"bt"],
+["Huitres","Cancale N2 (48 pcs)",42.9,"bt"],
+["Huitres","Cancale N2 (96 pcs)",79.9,"bt"],
+["Huitres","Cancale N2 (180 pcs)",119.9,"bt"],
+];
+
+var CUTS = [
+  ["entier","Entier","Non transforme"],
+  ["filet_sp","Filet S/P","Sans peau"],
+  ["filet_ap","Filet A/P","Avec peau"],
+  ["filet_gratte","Filet gratte","Ecailles grattees"],
+  ["filet_pare","Filet pare","Pare et nettoye"],
+  ["pave","Pave","Sans arete"],
+  ["darne","Darne","Avec arete"],
+  ["portion","Portion","Poids sur mesure"],
+  ["troncon","Troncon","En morceaux"],
+  ["desarete","Desarete","Aretes retirees"],
+  ["autre","Autre","Instruction speciale"]
+];
+var CL = {};
+for(var i=0;i<CUTS.length;i++) CL[CUTS[i][0]] = CUTS[i][1];
+
+var orders = JSON.parse(localStorage.getItem('pcord3') || '[]');
+var lc = 0;
+
+// ─── INIT ───
+function confirmOrder(orderId) {
+  var id = parseInt(orderId);
+  for(var i=0;i<orders.length;i++) {
+    if(orders[i].id === id) {
+      if(orders[i].status === 'prep') {
+        toast('Commande deja en preparation', 0, 1);
+      } else {
+        orders[i].status = 'prep';
+        save();
+        toast('Commande en cours de preparation !', 0, 1);
+      }
+      document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+      document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+      document.getElementById('page-list').classList.add('active');
+      document.querySelectorAll('.tab')[1].classList.add('active');
+      showOrders('');
+      return;
+    }
+  }
+  toast('Commande introuvable', 1);
+}
+
+function checkUrlConfirm() {
+  var url = window.location.search;
+  if(url.indexOf('confirm=') >= 0) {
+    var id = url.split('confirm=')[1].split('&')[0];
+    if(id) confirmOrder(id);
+  }
+}
+
+window.onload = function() {
+  checkUrlConfirm();
+  var d = new Date(); d.setDate(d.getDate()+1);
+  document.getElementById('delivDate').value = d.toISOString().split('T')[0];
+  addLine(); updateBadge(); buildTarif();
+
+  // Close dropdowns on outside tap
+  document.addEventListener('touchstart', function(e) {
+    if(!e.target.closest('#CAC')) closeCacDrop();
+  }, {passive:true});
+  document.addEventListener('mousedown', function(e) {
+    if(!e.target.closest('#CAC')) closeCacDrop();
+  });
+};
+
+function goTab(name, btn) {
+  var pages = document.querySelectorAll('.page');
+  for(var i=0;i<pages.length;i++) pages[i].classList.remove('active');
+  var tabs = document.querySelectorAll('.tab');
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
+  document.getElementById('page-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='list') showOrders('');
+}
+
+// ═══════════════════════════════════════
+// CLIENT AUTOCOMPLETE + HISTORIQUE
+// ═══════════════════════════════════════
+function getKnownClients() {
+  // Collect unique clients from orders, sorted by most recent
+  var seen = {};
+  var result = [];
+  for(var i=0;i<orders.length;i++) {
+    var n = orders[i].client;
+    if(!seen[n]) { seen[n]=true; result.push(n); }
+  }
+  return result;
+}
+
+function onClientInput() {
+  var inp = document.getElementById('clientName');
+  var q = inp.value.trim().toLowerCase();
+  var drop = document.getElementById('CAC_DROP');
+  var clients = getKnownClients();
+  var matches = [];
+  for(var i=0;i<clients.length;i++) {
+    if(!q || clients[i].toLowerCase().indexOf(q) >= 0) matches.push(clients[i]);
+  }
+  drop.innerHTML = '';
+  if(matches.length === 0) { drop.classList.remove('open'); return; }
+  for(var i=0;i<matches.length;i++) {
+    (function(name) {
+      var lastOrder = getLastOrderForClient(name);
+      var el = document.createElement('div');
+      el.className = 'cac-item';
+      var sub = lastOrder ? 'Derniere commande: '+fmtD(lastOrder.date)+' — '+fmt(lastOrder.total) : '';
+      el.innerHTML = '<div class="cac-name">'+name+'</div>'+(sub?'<div class="cac-sub">'+sub+'</div>':'');
+      var picked = false;
+      el.addEventListener('touchend', function(e) { e.preventDefault(); if(!picked){picked=true; pickClient(name);} });
+      el.addEventListener('mousedown', function(e) { e.preventDefault(); if(!picked){picked=true; pickClient(name);} });
+      drop.appendChild(el);
+    })(matches[i]);
+  }
+  drop.classList.add('open');
+}
+
+function pickClient(name) {
+  document.getElementById('clientName').value = name;
+  closeCacDrop();
+  showClientHistory(name);
+}
+
+function closeCacDrop() {
+  document.getElementById('CAC_DROP').classList.remove('open');
+}
+
+function getLastOrderForClient(name) {
+  for(var i=0;i<orders.length;i++) {
+    if(orders[i].client === name) return orders[i];
+  }
+  return null;
+}
+
+function showClientHistory(name) {
+  var lastOrder = getLastOrderForClient(name);
+  var banner = document.getElementById('histBanner');
+  if(!lastOrder) { banner.style.display='none'; return; }
+
+  banner.style.display = 'block';
+  document.getElementById('histTitle').textContent = 'Derniere commande du '+fmtD(lastOrder.date);
+
+  var html = '';
+  for(var i=0;i<lastOrder.lines.length;i++) {
+    var l = lastOrder.lines[i];
+    var newPrice = l.pr;
+    var tags = '';
+    if(l.cuts && l.cuts.length) {
+      var cn=[];
+      for(var j=0;j<l.cuts.length;j++) cn.push(CL[l.cuts[j]]||l.cuts[j]);
+      tags += '<span class="hist-tag hist-cut">'+cn.join(' + ')+'</span>';
+    }
+    if(l.sv) tags += '<span class="hist-tag hist-sv">Sous vide</span>';
+    if(l.cnote) tags += '<span class="hist-tag hist-cut">'+l.cnote+'</span>';
+
+    html += '<div class="hist-item" id="HI'+i+'" onclick="applyHistLine('+i+')">';
+    html += '<div class="hist-item-top">';
+    html += '<div class="hist-prod">'+l.n+'</div>';
+    html += '<div class="hist-tot">'+fmt(l.qty*newPrice)+'</div>';
+    html += '</div>';
+    html += '<div class="hist-row2">';
+    html += '<span class="hist-detail">'+l.qty+' '+l.u+' x '+fmt(l.pr)+'/'+l.u+'</span>';
+    html += '<span class="hist-newprice"> '+fmt(newPrice)+'/'+l.u+'</span>';
+    if(tags) html += tags;
+    html += '</div></div>';
+  }
+  document.getElementById('histItems').innerHTML = html;
+}
+
+function hideHistory() {
+  document.getElementById('histBanner').style.display = 'none';
+}
+
+function applyHistLine(lineIdx) {
+  var clientName = document.getElementById('clientName').value.trim();
+  var lastOrder = getLastOrderForClient(clientName);
+  if(!lastOrder || lineIdx >= lastOrder.lines.length) return;
+  var l = lastOrder.lines[lineIdx];
+  var newPrice = l.pr;
+
+  // Add a new line with this product
+  addLine();
+  var id = lc;
+
+  // Set product name
+  document.getElementById('AI'+id).value = l.n;
+  document.getElementById('ASN'+id).textContent = l.n;
+  document.getElementById('ASP'+id).textContent = fmt(newPrice)+'/'+l.u;
+  document.getElementById('AS'+id).style.display = 'block';
+  document.getElementById('AI'+id).style.display = 'none';
+
+  // Set qty, unit, price
+  document.getElementById('QT'+id).value = l.qty;
+  document.getElementById('PR'+id).value = newPrice;
+  setU(id, (l.u==='pc'||l.u==='bt') ? 'pc' : 'kg');
+
+  // Set cuts
+  if(l.cuts && l.cuts.length) {
+    document.getElementById('CT'+id).classList.add('active');
+    document.getElementById('CP'+id).classList.add('open');
+    for(var j=0;j<l.cuts.length;j++) {
+      var cb = document.getElementById('CB'+id+'_'+l.cuts[j]);
+      if(cb) { cb.checked=true; document.getElementById('CO'+id+'_'+l.cuts[j]).classList.add('checked'); }
+    }
+    updateCutDisplay(id);
+  }
+
+  // Set sous vide
+  if(l.sv) { document.getElementById('SV'+id).classList.add('active'); }
+
+  // Set note
+  if(l.cnote) { document.getElementById('CN'+id).value = l.cnote; }
+
+  calcLine(id);
+
+  // Visual feedback on the hist item
+  var hi = document.getElementById('HI'+lineIdx);
+  if(hi) { hi.style.opacity='0.4'; hi.style.pointerEvents='none'; }
+
+  toast('Produit ajoute: '+l.n+' a '+fmt(newPrice)+'/'+l.u);
+}
+
+function applyAllHistory() {
+  var clientName = document.getElementById('clientName').value.trim();
+  var lastOrder = getLastOrderForClient(clientName);
+  if(!lastOrder) return;
+
+  // Clear existing lines
+  document.getElementById('lines').innerHTML = '';
+  lc = 0;
+
+  for(var i=0;i<lastOrder.lines.length;i++) {
+    applyHistLine(i);
+    // Re-enable hist items since we're applying all
+    var hi = document.getElementById('HI'+i);
+    if(hi) { hi.style.opacity='1'; hi.style.pointerEvents='auto'; }
+  }
+  toast('Toute la commande reprise avec ');
+}
+
+
+// ════════════════════════════════════
+// RECHERCHE VOCALE
+// ════════════════════════════════════
+var voiceRecog = null;
+if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  voiceRecog = new SR();
+  voiceRecog.lang = 'fr-FR';
+  voiceRecog.continuous = false;
+  voiceRecog.interimResults = false;
+}
+
+function startVoice(target, lineId) {
+  if(!voiceRecog) { toast('Vocal non supporte sur ce navigateur', 1); return; }
+  var btnId = target === 'client' ? 'voiceClientBtn' : 'VB'+lineId;
+  var btn = document.getElementById(btnId);
+  
+  voiceRecog.onstart = function() {
+    btn.classList.add('listening');
+    btn.textContent = '🎤 Ecoute...';
+  };
+  voiceRecog.onend = function() {
+    btn.classList.remove('listening');
+    btn.innerHTML = '🎤 ' + (target==='client' ? 'Dicter le nom du client' : 'Dicter le produit');
+  };
+  voiceRecog.onresult = function(e) {
+    var txt = e.results[0][0].transcript.trim();
+    if(target === 'client') {
+      document.getElementById('clientName').value = txt;
+      onClientInput();
+      toast('Client: ' + txt);
+    } else {
+      var inp = document.getElementById('AI'+lineId);
+      if(inp) {
+        inp.value = txt;
+        showAC(lineId);
+        toast('Recherche: ' + txt);
+      }
+    }
+  };
+  voiceRecog.onerror = function(e) {
+    toast('Erreur micro: ' + e.error, 1);
+    btn.classList.remove('listening');
+    btn.innerHTML = '🎤 ' + (target==='client' ? 'Dicter le nom du client' : 'Dicter le produit');
+  };
+  voiceRecog.start();
+}
+
+// ════════════════════════════════════
+// HISTORIQUE PAR PRODUIT
+// ════════════════════════════════════
+function getLastProductData(productName, clientName) {
+  // Search only orders for this client
+  for(var i=0; i<orders.length; i++) {
+    var o = orders[i];
+    if(clientName && o.client.toLowerCase() !== clientName.toLowerCase()) continue;
+    for(var j=0; j<o.lines.length; j++) {
+      var l = o.lines[j];
+      if(l.n === productName) {
+        return {
+          date: o.date,
+          client: o.client,
+          qty: l.qty,
+          pr: l.pr,
+          u: l.u || 'kg'
+        };
+      }
+    }
+  }
+  return null;
+}
+
+function showProdHist(lineId, productName) {
+  var ph = document.getElementById('PH'+lineId);
+  if(!ph) return;
+  var clientName = document.getElementById('clientName').value.trim();
+  if(!clientName) { ph.style.display='none'; return; }
+  var hist = getLastProductData(productName, clientName);
+  if(!hist) { ph.style.display='none'; return; }
+  document.getElementById('PHD'+lineId).textContent = fmtD(hist.date)+' — '+hist.client;
+  document.getElementById('PHQ'+lineId).textContent = hist.qty+' '+hist.u;
+  document.getElementById('PHP'+lineId).textContent = fmt(hist.pr)+'/'+hist.u;
+  ph.style.display='block';
+  // Store data for apply
+  ph.dataset.qty = hist.qty;
+  ph.dataset.pr = hist.pr;
+  ph.dataset.u = hist.u;
+}
+
+function applyProdHist(lineId) {
+  var ph = document.getElementById('PH'+lineId);
+  if(!ph) return;
+  document.getElementById('QT'+lineId).value = ph.dataset.qty;
+  document.getElementById('PR'+lineId).value = ph.dataset.pr;
+  setU(lineId, ph.dataset.u);
+  calcLine(lineId);
+  toast('Valeurs reprises');
+}
+
+// ═══════════════════════════════════════
+// PRODUCT AUTOCOMPLETE
+// ═══════════════════════════════════════
+function setupAC(id) {
+  var inp = document.getElementById('AI'+id);
+  inp.addEventListener('input', function() { showAC(id); });
+  inp.addEventListener('focus', function() { showAC(id); });
+  document.addEventListener('touchstart', function(e) {
+    if(!e.target.closest('#AW'+id)) closeAC(id);
+  }, {passive:true});
+  document.addEventListener('mousedown', function(e) {
+    if(!e.target.closest('#AW'+id)) closeAC(id);
+  });
+}
+
+function showAC(id) {
+  var inp = document.getElementById('AI'+id);
+  var drop = document.getElementById('AD'+id);
+  var q = inp.value.toLowerCase().trim();
+  drop.innerHTML = '';
+  var groups={}, groupOrder=[];
+  for(var i=0;i<CAT.length;i++) {
+    var p=CAT[i];
+    if(!q || p[1].toLowerCase().indexOf(q)>=0 || p[0].toLowerCase().indexOf(q)>=0) {
+      if(!groups[p[0]]){groups[p[0]]=[]; groupOrder.push(p[0]);}
+      groups[p[0]].push({idx:i,p:p});
+    }
+  }
+  var count=0;
+  for(var g=0;g<groupOrder.length&&count<40;g++) {
+    var grp=groupOrder[g]; var items=groups[grp];
+    var titleEl=document.createElement('div');
+    titleEl.className='ac-group'; titleEl.textContent=grp;
+    drop.appendChild(titleEl);
+    for(var j=0;j<items.length&&count<40;j++) {
+      (function(item) {
+        var el=document.createElement('div'); el.className='ac-item';
+        var pr=item.p[2]?item.p[2]+'e/'+item.p[3]:'NC';
+        el.innerHTML='<div class="ac-item-name">'+item.p[1]+'</div><div class="ac-item-price">'+pr+'</div>';
+        var picked=false;
+        el.addEventListener('touchend',function(e){e.preventDefault();if(!picked){picked=true;pickProd(id,item.idx);}});
+        el.addEventListener('mousedown',function(e){e.preventDefault();if(!picked){picked=true;pickProd(id,item.idx);}});
+        drop.appendChild(el); count++;
+      })(items[j]);
+    }
+  }
+  if(count===0){
+    var el=document.createElement('div'); el.className='ac-item'; el.style.color='#8A9BB0';
+    el.textContent='Produit libre - sera saisi tel quel'; drop.appendChild(el);
+  }
+  drop.classList.add('open');
+}
+
+function pickProd(id, catIdx) {
+  var p=CAT[catIdx];
+  document.getElementById('AI'+id).value=p[1];
+  document.getElementById('ASN'+id).textContent=p[1];
+  document.getElementById('ASP'+id).textContent=p[2]?fmt(p[2])+'/'+p[3]:'Prix NC';
+  document.getElementById('AS'+id).style.display='block';
+  document.getElementById('AI'+id).style.display='none';
+  closeAC(id);
+  if(p[2]) document.getElementById('PR'+id).value=p[2];
+  else document.getElementById('PR'+id).value='';
+  setU(id,(p[3]==='pc'||p[3]==='bt')?'pc':'kg');
+  showProdHist(id, p[1]);
+  calcLine(id);
+}
+
+function clearSel(id) {
+  document.getElementById('AS'+id).style.display='none';
+  var inp=document.getElementById('AI'+id);
+  inp.style.display='block'; inp.value=''; inp.focus();
+  document.getElementById('PR'+id).value='';
+  calcLine(id);
+}
+
+function closeAC(id) {
+  var d=document.getElementById('AD'+id); if(d) d.classList.remove('open');
+}
+
+// ═══════════════════════════════════════
+// ADD LINE
+// ═══════════════════════════════════════
+function addLine() {
+  lc++;
+  var id=lc;
+  var cutHtml='';
+  for(var i=0;i<CUTS.length;i++) {
+    cutHtml+='<label class="cut-opt" id="CO'+id+'_'+CUTS[i][0]+'">'
+      +'<input type="checkbox" id="CB'+id+'_'+CUTS[i][0]+'" value="'+CUTS[i][0]+'" onchange="updateCutDisplay('+id+')"\/>'
+      +'<span>'+CUTS[i][1]+'<small>'+CUTS[i][2]+'<\/small><\/span><\/label>';
+  }
+  var div=document.createElement('div');
+  div.className='line'; div.id='L'+id;
+  div.innerHTML=
+    '<div class="line-hd">'+
+      '<span class="line-num">Produit '+id+'<\/span>'+
+      '<button class="btn-rm" onclick="rmLine('+id+')">Retirer<\/button>'+
+    '<\/div>'+
+    '<label>Produit<\/label>'+
+    '<div class="ac-wrap" id="AW'+id+'">'+
+      '<div class="ac-selected" id="AS'+id+'" style="display:none">'+
+        '<div class="ac-sel-name" id="ASN'+id+'"><\/div>'+
+        '<div class="ac-sel-price" id="ASP'+id+'"><\/div>'+
+        '<div class="ac-sel-change">Appuyer pour changer<\/div>'+
+        '<span class="ac-clear" onclick="clearSel('+id+')">&#215;<\/span>'+
+      '<\/div>'+
+      '<input type="text" id="AI'+id+'" placeholder="Taper pour rechercher..." autocomplete="off" autocorrect="off" autocapitalize="off"\/>'+
+      '<div class="ac-results" id="AD'+id+'"><\/div>'+
+    '<\/div>'+
+    '<button class="voice-btn" id="VB'+id+'" onclick="startVoice(\'prod\','+id+')">🎤 Dicter le produit<\/button>'+
+    '<div class="prod-hist" id="PH'+id+'">'+
+      '<div class="prod-hist-title">Derniere commande de ce produit<\/div>'+
+      '<div class="prod-hist-row"><span id="PHD'+id+'"><\/span><span id="PHQ'+id+'"><\/span><span id="PHP'+id+'"><\/span><\/div>'+
+      '<div class="prod-hist-apply" onclick="applyProdHist('+id+')">Appliquer ces valeurs &rarr;<\/div>'+
+    '<\/div>'+
+    '<div style="margin-bottom:10px"><label>Commentaire<\/label><input type="text" id="CM'+id+'" placeholder="Ex: lever a 7h, client fragile..." autocomplete="off"\/><\/div>'+
+    '<div class="qrow">'+
+      '<div><label>Quantite<\/label><input type="number" id="QT'+id+'" placeholder="0" min="0" step="0.5" oninput="calcLine('+id+')"\/><\/div>'+
+      '<div><label>Unite<\/label><div class="utog">'+
+        '<button class="ubtn active" id="UK'+id+'" onclick="setU('+id+',\'kg\')">kg<\/button>'+
+        '<button class="ubtn" id="UP'+id+'" onclick="setU('+id+',\'pc\')">pce<\/button>'+
+      '<\/div><\/div>'+
+      '<div><label>Prix HT<\/label><input type="number" id="PR'+id+'" placeholder="0.00" min="0" step="0.01" oninput="calcLine('+id+')"\/><\/div>'+
+    '<\/div>'+
+    '<div class="sect" id="CT'+id+'" onclick="togCut('+id+')">'+
+      '<span>Decoupe<\/span>'+
+      '<span class="sect-lbl"><small id="CTLBL'+id+'">Choisir les modes de coupe<\/small><\/span>'+
+      '<div class="sw"><\/div>'+
+    '<\/div>'+
+    '<div class="cut-panel" id="CP'+id+'">'+
+      '<div class="cut-grid">'+cutHtml+'<\/div>'+
+      '<div class="cut-note"><label>Precision<\/label>'+
+        '<input type="text" id="CN'+id+'" placeholder="Ex: portions 180g, lever filets en 2..."\/>'+
+      '<\/div>'+
+    '<\/div>'+
+    '<div class="sect" id="SV'+id+'" onclick="togSV('+id+')">'+
+      '<span>Sous vide<\/span>'+
+      '<span class="sect-lbl"><small>Conditionnement sous vide<\/small><\/span>'+
+      '<div class="sw"><\/div>'+
+    '<\/div>'+
+    '<div class="line-total"><span>Sous-total HT<\/span><span id="LT'+id+'">0,00 e<\/span><\/div>';
+  document.getElementById('lines').appendChild(div);
+  setupAC(id);
+  calcSummary();
+}
+
+function rmLine(id){var el=document.getElementById('L'+id);if(el)el.remove();calcSummary();}
+function setU(id,u){document.getElementById('UK'+id).classList.toggle('active',u==='kg');document.getElementById('UP'+id).classList.toggle('active',u==='pc');}
+function getU(id){return document.getElementById('UP'+id).classList.contains('active')?'pc':'kg';}
+function togCut(id){document.getElementById('CT'+id).classList.toggle('active');document.getElementById('CP'+id).classList.toggle('open');}
+function togSV(id){
+  var sv=document.getElementById('SV'+id);
+  var was=sv.classList.contains('active');
+  sv.classList.toggle('active');
+  var pr=document.getElementById('PR'+id);
+  var v=parseFloat(pr.value)||0;
+  if(v>0){
+    if(!was){pr.value=Math.round((v+1)*100)/100;toast('+1 e/kg (sous vide)');}
+    else{pr.value=Math.round((v-1)*100)/100;toast('-1 e/kg (sous vide retire)');}
+  }
+  calcLine(id);
+}
+
+function updateCutDisplay(id) {
+  var sel=[];
+  for(var i=0;i<CUTS.length;i++){
+    var cb=document.getElementById('CB'+id+'_'+CUTS[i][0]);
+    if(cb&&cb.checked){sel.push(CUTS[i][1]);document.getElementById('CO'+id+'_'+CUTS[i][0]).classList.add('checked');}
+    else if(cb) document.getElementById('CO'+id+'_'+CUTS[i][0]).classList.remove('checked');
+  }
+  document.getElementById('CTLBL'+id).textContent=sel.length?sel.join(' + '):'Choisir les modes de coupe';
+}
+
+function getSelectedCuts(id){
+  var s=[];
+  for(var i=0;i<CUTS.length;i++){var cb=document.getElementById('CB'+id+'_'+CUTS[i][0]);if(cb&&cb.checked)s.push(CUTS[i][0]);}
+  return s;
+}
+
+function calcLine(id){
+  var qty=parseFloat(document.getElementById('QT'+id).value)||0;
+  var pr=parseFloat(document.getElementById('PR'+id).value)||0;
+  document.getElementById('LT'+id).textContent=fmt(qty*pr);
+  calcSummary();
+}
+
+function calcSummary(){
+  var total=0,count=0;
+  var lines=document.querySelectorAll('.line');
+  for(var i=0;i<lines.length;i++){
+    var id=lines[i].id.replace('L','');
+    total+=(parseFloat(document.getElementById('QT'+id).value)||0)*(parseFloat(document.getElementById('PR'+id).value)||0);
+    count++;
+  }
+  document.getElementById('sCount').textContent=count;
+  document.getElementById('sTotal').textContent=fmt(total);
+}
+
+function collectLines(){
+  var out=[];
+  var lines=document.querySelectorAll('.line');
+  for(var i=0;i<lines.length;i++){
+    var id=lines[i].id.replace('L','');
+    var selDiv=document.getElementById('AS'+id);
+    var nom=selDiv.style.display!=='none'?document.getElementById('ASN'+id).textContent:document.getElementById('AI'+id).value.trim();
+    if(!nom) continue;
+    var qty=parseFloat(document.getElementById('QT'+id).value)||0;
+    var pr=parseFloat(document.getElementById('PR'+id).value)||0;
+    if(qty<=0&&pr<=0) continue;
+    var u=getU(id);
+    var hasCut=document.getElementById('CT'+id).classList.contains('active');
+    var cuts=hasCut?getSelectedCuts(id):[];
+    var cnote=hasCut?document.getElementById('CN'+id).value.trim():'';
+    var sv=document.getElementById('SV'+id).classList.contains('active');
+    out.push({n:nom,qty:qty,pr:pr,tot:qty*pr,u:u,cuts:cuts,cnote:cnote,sv:sv});
+  }
+  return out;
+}
+
+function buildOrder(){
+  var client=document.getElementById('clientName').value.trim();
+  var date=document.getElementById('delivDate').value;
+  if(!client){toast('Saisissez un nom de client',1);return null;}
+  if(!date){toast('Choisissez une date de livraison',1);return null;}
+  var lines=collectLines();
+  if(!lines.length){toast('Ajoutez au moins un produit avec une quantite',1);return null;}
+  var tot=0; for(var i=0;i<lines.length;i++) tot+=lines[i].tot;
+  return{id:Date.now(),client:client,date:date,lines:lines,total:tot,created:new Date().toLocaleDateString('fr-FR'),status:'attente'};
+}
+
+function saveOrder(){var o=buildOrder();if(!o)return;orders.unshift(o);save();updateBadge();toast('Commande de '+o.client+' enregistree');resetForm();}
+function mailOrder(){var o=buildOrder();if(!o)return;orders.unshift(o);save();updateBadge();openMail(o);resetForm();}
+
+function openMail(o){
+  var subj='Commande Paris Caviar - '+o.client+' - Livraison '+fmtD(o.date);
+  var body='PARIS CAVIAR - Bon de commande\n--------------------------------\n';
+  body+='Client    : '+o.client+'\nLivraison : '+fmtD(o.date)+'\nCree le   : '+o.created+'\n--------------------------------\n\n';
+  for(var i=0;i<o.lines.length;i++){
+    var l=o.lines[i];
+    body+='* '+l.n+'\n  Qte: '+l.qty+' '+l.u+'   Prix: '+fmt(l.pr)+'   Total: '+fmt(l.tot)+'\n';
+    if(l.cuts&&l.cuts.length){var cn=[];for(var j=0;j<l.cuts.length;j++)cn.push(CL[l.cuts[j]]||l.cuts[j]);body+='  Coupe: '+cn.join(' + ')+'\n';}
+    if(l.cnote) body+='  Precision: '+l.cnote+'\n';
+    if(l.sv) body+='  [Sous vide]\n';
+    body+='\n';
+  }
+  body+='--------------------------------\nTOTAL HT : '+fmt(o.total);
+  var confirmUrl = 'https://script.google.com/macros/s/AKfycbwkfoL5LCRcNDda-ZoJwqBwDNJU6uANFx8tmiabdNWv9ycAyW_MV1U0NE1JvyVeVtDIgw/exec?confirm='+o.id;
+  body+='\n\n--------------------------------';
+  body+='\nCONFIRMER LA PREPARATION : ' + confirmUrl;
+  body+='\n(Cliquer sur ce lien pour passer la commande en cours de preparation)';
+  window.location.href='mailto:commandes@paris-caviar.fr?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+  toast('Ouverture mail...',0,1);
+}
+
+function resetForm(){
+  document.getElementById('clientName').value='';
+  document.getElementById('histBanner').style.display='none';
+  var d=new Date();d.setDate(d.getDate()+1);
+  document.getElementById('delivDate').value=d.toISOString().split('T')[0];
+  document.getElementById('lines').innerHTML='';
+  lc=0;addLine();calcSummary();
+}
+
+// ─── ORDERS ───
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkfoL5LCRcNDda-ZoJwqBwDNJU6uANFx8tmiabdNWv9ycAyW_MV1U0NE1JvyVeVtDIgw/exec';
+
+function fetchStatuses(callback) {
+  var url = SCRIPT_URL + '?getStatuses=1';
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(data){ callback(data); })
+    .catch(function(){ callback({}); });
+}
+
+function syncStatuses() {
+  fetchStatuses(function(data) {
+    if(!data || !data.statuses) return;
+    var updated = false;
+    for(var i=0;i<orders.length;i++) {
+      var sid = String(orders[i].id);
+      if(data.statuses[sid] && data.statuses[sid] !== orders[i].status) {
+        orders[i].status = data.statuses[sid];
+        updated = true;
+      }
+    }
+    if(updated) { save(); showOrders(''); }
+  });
+}
+
+function showOrders(search){
+  var q=(search||'').toLowerCase();
+  var c=document.getElementById('orderList');
+  var list=[];
+  for(var i=0;i<orders.length;i++) if(orders[i].client.toLowerCase().indexOf(q)>=0) list.push(orders[i]);
+  if(!list.length){c.innerHTML='<div class="empty">Aucune commande enregistree</div>';return;}
+  var html='';
+  for(var i=0;i<list.length;i++){
+    var o=list[i]; var rows='';
+    for(var j=0;j<o.lines.length;j++){
+      var l=o.lines[j]; var tags='';
+      if(l.cuts&&l.cuts.length){var cn=[];for(var k=0;k<l.cuts.length;k++)cn.push(CL[l.cuts[k]]||l.cuts[k]);tags+='<span class="tag tcut">'+cn.join(' + ')+(l.cnote?' | '+l.cnote:'')+'</span>';}
+      if(l.sv) tags+='<span class="tag tsv">Sous vide</span>';
+      rows+='<div class="oprod"><div class="oprod-row"><span>'+l.n+'</span><span style="color:#8A9BB0">'+l.qty+' '+(l.u||'kg')+'</span><span style="color:#8A9BB0">'+fmt(l.pr)+'</span><span style="color:#E8C96A;font-weight:700">'+fmt(l.tot)+'</span></div>'+(tags?'<div class="tags">'+tags+'</div>':'')+'</div>';
+    }
+    html+='<div class="ocard"><div class="ocard-hd" onclick="togOrd('+o.id+')"><div><div class="oclient">'+o.client+'</div><div class="odate">Livraison: '+fmtD(o.date)+' | Cree: '+o.created+'</div></div><div class="otot">'+fmt(o.total)+'</div></div><div class="obody" id="OB'+o.id+'">'+rows+'<div class="oacts"><button class="oact a-copy" onclick="copyOrd('+o.id+')">Copier</button><button class="oact a-mail" onclick="mailOrd('+o.id+')">Email</button><button class="oact a-del" onclick="delOrd('+o.id+')">Supprimer</button></div></div></div>';
+  }
+  c.innerHTML=html;
+}
+
+function togOrd(id){var el=document.getElementById('OB'+id);if(el)el.classList.toggle('open');}
+function delOrd(id){var n=[];for(var i=0;i<orders.length;i++)if(orders[i].id!==id)n.push(orders[i]);orders=n;save();updateBadge();showOrders('');toast('Commande supprimee');}
+function clearAll(){if(!orders.length)return;if(confirm('Effacer toutes les commandes ?')){orders=[];save();updateBadge();showOrders('');toast('Tout efface');}}
+function mailOrd(id){for(var i=0;i<orders.length;i++)if(orders[i].id===id){openMail(orders[i]);return;}}
+function copyOrd(id){
+  for(var i=0;i<orders.length;i++){
+    if(orders[i].id===id){
+      var o=orders[i]; var txt='PARIS CAVIAR - '+o.client+' - Livraison '+fmtD(o.date)+'\n';
+      for(var j=0;j<o.lines.length;j++){var l=o.lines[j];txt+='* '+l.n+' - '+l.qty+' '+l.u+' x '+fmt(l.pr)+' = '+fmt(l.tot)+'\n';if(l.cuts&&l.cuts.length){var cn=[];for(var k=0;k<l.cuts.length;k++)cn.push(CL[l.cuts[k]]||l.cuts[k]);txt+='  Coupe: '+cn.join(' + ')+(l.cnote?' | '+l.cnote:'')+'\n';}if(l.sv)txt+='  [Sous vide]\n';}
+      txt+='TOTAL HT: '+fmt(o.total);
+      if(navigator.clipboard)navigator.clipboard.writeText(txt).then(function(){toast('Copie!');});
+      return;
+    }
+  }
+}
+
+// ─── TARIF ───
+function buildTarif(){showTarif('');}
+function showTarif(search){
+  var q=(search||'').toLowerCase();
+  var groups={},groupOrder=[];
+  for(var i=0;i<CAT.length;i++){var p=CAT[i];if(!q||p[1].toLowerCase().indexOf(q)>=0||p[0].toLowerCase().indexOf(q)>=0){if(!groups[p[0]]){groups[p[0]]=[];groupOrder.push(p[0]);}groups[p[0]].push(p);}}
+  var c=document.getElementById('tarifList');
+  if(!groupOrder.length){c.innerHTML='<div class="empty">Aucun produit</div>';return;}
+  var html='';
+  for(var i=0;i<groupOrder.length;i++){var g=groupOrder[i];html+='<div class="tgroup"><div class="tgroup-title">'+g+'</div>';for(var j=0;j<groups[g].length;j++){var p=groups[g][j];html+='<div class="titem"><span class="tname">'+p[1]+'</span><span class="tunit">'+p[3]+'</span>'+(p[2]?'<span class="tprice">'+fmt(p[2])+'</span>':'<span class="tnc">NC</span>')+'</div>';}html+='</div>';}
+  c.innerHTML=html;
+}
+
+// ─── HELPERS ───
+function fmt(n){return(n||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' e';}
+function fmtD(d){if(!d)return'';var p=d.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function save(){localStorage.setItem('pcord3',JSON.stringify(orders));}
+function updateBadge(){document.getElementById('badge').textContent=orders.length+' commande'+(orders.length>1?'s':'');}
+function toast(msg,err,info){
+  var t=document.getElementById('toast');t.textContent=msg;
+  t.className='toast'+(err?' err':'')+(info?' info':'');
+  setTimeout(function(){t.classList.add('show');},10);
+  setTimeout(function(){t.classList.remove('show');},2800);
+}
+</script>
+</body>
+</html>
