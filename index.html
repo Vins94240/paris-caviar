@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="apple-touch-icon" href="https://vins94240.github.io/paris-caviar/logo.jpg"/>
+  <link rel="shortcut icon" href="https://vins94240.github.io/paris-caviar/logo.jpg"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-title" content="Paris Caviar"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+  <meta http-equiv="Cache-Control" content="no-cache"/>
+  <title>Paris Caviar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:#F0F6FF;color:#0D2A4A;padding-bottom:80px;font-size:16px}
+header{background:#fff;border-bottom:2px solid #A8D4F5;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(13,42,74,.08)}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-img{width:42px;height:42px;object-fit:contain}
+.logo-text span:first-child{font-size:18px;font-weight:700;color:#0D2A4A;display:block}
+.logo-text span:last-child{font-size:10px;font-weight:600;color:#5BA3D9;letter-spacing:.1em;text-transform:uppercase;display:block}
+#badge{background:#0D2A4A;color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.tabs{display:flex;background:#fff;border-bottom:2px solid #A8D4F5;position:sticky;top:63px;z-index:19}
+.tab{flex:1;padding:13px 4px;text-align:center;font-size:15px;font-weight:700;color:#5BA3D9;border:none;background:none;cursor:pointer;font-family:'Outfit',sans-serif}
+.tab.active{color:#0D2A4A;border-bottom:3px solid #0D2A4A;margin-bottom:-2px}
+.page{display:none;padding:16px}.page.active{display:block}
+.card{background:#fff;border:1.5px solid #C8E6FA;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(13,42,74,.06)}
+.card-title{font-size:15px;font-weight:700;color:#0D2A4A;margin-bottom:12px;border-bottom:1.5px solid #E8F4FD;padding-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+label{display:block;font-size:13px;font-weight:700;color:#5BA3D9;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+input[type=text],input[type=date],input[type=number]{width:100%;background:#F7FBFF;border:1.5px solid #C8E6FA;border-radius:8px;color:#0D2A4A;font-size:16px;font-weight:500;padding:11px 12px;outline:none;-webkit-appearance:none;font-family:'Outfit',sans-serif}
+input:focus{border-color:#5BA3D9;background:#fff}
+input::placeholder{color:#A8C8E8}
+#CAC{position:relative}
+.cac-drop{position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid #5BA3D9;border-top:none;border-radius:0 0 10px 10px;z-index:100;display:none;max-height:220px;overflow-y:auto;box-shadow:0 4px 12px rgba(13,42,74,.2)}
+.cac-drop.open{display:block}
+.cac-item{padding:11px 14px;border-bottom:1px solid #E8F4FD;cursor:pointer;font-size:15px}
+.cac-item:active{background:#EBF5FF}
+.cac-name{font-weight:700;color:#0D2A4A}
+.cac-sub{font-size:12px;color:#5BA3D9;margin-top:2px}
+.hist{background:#EBF5FF;border:1.5px solid #A8D4F5;border-radius:12px;padding:12px 14px;margin-bottom:14px;display:none}
+.hist-hd{font-size:13px;font-weight:700;color:#0D2A4A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.hit{background:#fff;border:1.5px solid #C8E6FA;border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.hit:active{border-color:#5BA3D9}
+.hit-name{font-size:15px;font-weight:700;color:#0D2A4A}
+.hit-d{font-size:13px;color:#5BA3D9;margin-top:3px}
+.htag{font-size:11px;padding:2px 8px;border-radius:6px;font-weight:600;background:#E8F4FD;color:#0D2A4A}
+.hist-all{width:100%;padding:11px;background:#0D2A4A;border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;margin-top:6px}
+.ac-wrap{position:relative;margin-bottom:8px}
+.ac-results{position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid #5BA3D9;border-top:none;border-radius:0 0 10px 10px;max-height:260px;overflow-y:auto;z-index:50;display:none;box-shadow:0 4px 12px rgba(13,42,74,.12)}
+.ac-results.open{display:block}
+.ac-group{font-size:11px;font-weight:700;color:#5BA3D9;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px 3px;background:#F0F6FF;position:sticky;top:0;border-bottom:1px solid #E8F4FD}
+.ac-item{padding:11px 12px;border-bottom:1px solid #E8F4FD;cursor:pointer;font-size:15px}
+.ac-item:last-child{border:none}
+.ac-item:active{background:#EBF5FF}
+.ac-item-name{color:#0D2A4A;font-weight:600}
+.ac-item-price{font-size:12px;color:#5BA3D9;margin-top:2px;font-weight:600}
+.ac-selected{background:#EBF5FF;border:1.5px solid #5BA3D9;border-radius:8px;padding:10px 12px;margin-bottom:8px;display:none;position:relative;cursor:pointer}
+.ac-sel-name{font-size:16px;font-weight:700;color:#0D2A4A}
+.ac-sel-price{font-size:13px;color:#5BA3D9;margin-top:3px;font-weight:600}
+.ac-sel-change{font-size:11px;color:#A8C8E8;margin-top:2px}
+.ac-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:22px;color:#A8C8E8;cursor:pointer;padding:4px}
+.qrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.utog{display:flex;border:1.5px solid #C8E6FA;border-radius:8px;overflow:hidden}
+.ubtn{flex:1;border:none;background:transparent;color:#A8C8E8;font-size:14px;font-weight:700;padding:10px 4px;cursor:pointer;font-family:'Outfit',sans-serif}
+.ubtn.active{background:#0D2A4A;color:#fff}
+.sect{display:flex;align-items:center;gap:10px;background:#F7FBFF;border:1.5px solid #C8E6FA;border-radius:10px;padding:13px 14px;cursor:pointer;margin-top:12px;user-select:none;font-size:16px;font-weight:600}
+.sect.on,.sect.active{border-color:#5BA3D9;background:#EBF5FF}
+.sect-lbl{flex:1;font-size:13px;color:#0D2A4A}
+.sect-lbl small{display:block;font-size:11px;color:#A8C8E8;margin-top:1px}
+.sw{width:38px;height:22px;background:#C8E6FA;border-radius:11px;position:relative;flex-shrink:0}
+.sw::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.sect.on .sw,.sect.active .sw{background:#0D2A4A}
+.sect.on .sw::after,.sect.active .sw::after{transform:translateX(16px)}
+.cut-panel{display:none;margin-top:8px;background:#fff;border:1.5px solid #C8E6FA;border-radius:10px;overflow:hidden}
+.cut-panel.open{display:block}
+.cut-grid{display:grid;grid-template-columns:1fr 1fr}
+.copt{display:flex;align-items:flex-start;gap:8px;padding:10px;border-bottom:1px solid #E8F4FD;border-right:1px solid #E8F4FD;cursor:pointer}
+.copt:nth-child(even){border-right:none}
+.copt:last-child{border-bottom:none}
+.copt input[type=checkbox]{width:16px;height:16px;accent-color:#0D2A4A;flex-shrink:0;margin-top:2px}
+.copt span{font-size:14px;color:#0D2A4A;font-weight:600}
+.copt span small{display:block;font-size:11px;color:#A8C8E8;font-weight:400}
+.copt.on{background:#EBF5FF}
+.cut-note{padding:8px 10px;border-top:1px solid #E8F4FD}
+.line{background:#fff;border:1.5px solid #C8E6FA;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 6px rgba(13,42,74,.05)}
+.line-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.line-num{font-size:13px;font-weight:700;color:#5BA3D9;text-transform:uppercase;letter-spacing:.08em}
+.btn-rm{background:#FFF0F0;border:1px solid #FFCDD2;color:#E05252;border-radius:6px;font-size:13px;padding:5px 12px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600}
+.btn-add{width:100%;padding:14px;background:#EBF5FF;border:2px dashed #A8D4F5;border-radius:10px;color:#5BA3D9;font-size:16px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;margin-top:4px}
+.btn-main{width:100%;padding:15px;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;margin-bottom:10px}
+.btn-save{background:#0D2A4A;color:#fff}
+.btn-mail{background:#5BA3D9;color:#fff}
+.btn-pdf{background:#EBF5FF;color:#0D2A4A;border:1.5px solid #A8D4F5}
+.ocard{background:#fff;border:1.5px solid #C8E6FA;border-radius:12px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 6px rgba(13,42,74,.05)}
+.ocard-hd{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.oclient{font-weight:700;font-size:16px;color:#0D2A4A}
+.odate{font-size:12px;color:#5BA3D9;margin-top:2px}
+.otot{background:#EBF5FF;color:#0D2A4A;font-weight:700;font-size:15px;padding:4px 12px;border-radius:16px;border:1px solid #A8D4F5}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;text-transform:uppercase;margin-top:3px}
+.status-attente{background:#FFF3CD;color:#856404}
+.status-prep{background:#D4EDFF;color:#0D5C96}
+.obody{padding:12px 14px;display:none;border-top:1.5px solid #E8F4FD}
+.obody.open{display:block}
+.oprod{padding:7px 0;border-bottom:1px solid #E8F4FD;font-size:14px}
+.oprod:last-of-type{border:none}
+.oprod-row{display:grid;grid-template-columns:2fr .7fr .8fr .9fr;gap:4px;color:#0D2A4A}
+.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.tag{font-size:11px;padding:2px 8px;border-radius:8px;font-weight:600}
+.tcut{background:#E8F4FD;color:#0D2A4A}
+.tsv{background:#D4EDFF;color:#1A6FA0}
+.oacts{display:flex;gap:6px;margin-top:10px}
+.oact{flex:1;padding:9px 4px;border-radius:8px;font-size:13px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;border:none;text-align:center}
+.a-copy{background:#EBF5FF;color:#0D2A4A}
+.a-mail{background:#D4EDFF;color:#1A6FA0}
+.a-pdf{background:#FFF3CD;color:#856404}
+.a-del{background:#FFF0F0;color:#E05252}
+.srch{margin-bottom:12px}
+.tgroup{margin-bottom:14px}
+.tgroup-title{font-size:13px;font-weight:700;color:#5BA3D9;text-transform:uppercase;letter-spacing:.08em;padding:8px 10px;border-bottom:2px solid #C8E6FA;margin-bottom:6px;background:#F0F6FF;border-radius:6px 6px 0 0}
+.titem{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:6px;font-size:14px}
+.titem:nth-child(odd){background:#F7FBFF}
+.tname{flex:1;color:#0D2A4A;font-weight:500}
+.tunit{color:#A8C8E8;font-size:12px;margin-right:6px}
+.tprice{font-weight:700;color:#0D2A4A}
+.tnc{color:#A8C8E8;font-style:italic;font-size:12px}
+.tadd{background:#0D2A4A;color:#C9A84C;border:none;border-radius:7px;width:32px;height:32px;font-size:22px;font-weight:700;cursor:pointer;flex-shrink:0;margin-left:8px;font-family:sans-serif;line-height:1}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#0D2A4A;color:#fff;padding:10px 22px;border-radius:24px;font-size:14px;font-weight:600;box-shadow:0 4px 20px rgba(13,42,74,.3);transition:transform .3s;z-index:999;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.err{background:#E05252}
+.empty{text-align:center;padding:40px 20px;color:#A8C8E8;font-size:15px}
+.prod-hint{background:#EBF5FF;border:1.5px solid #A8D4F5;border-radius:8px;padding:8px 12px;margin-top:6px;display:none;font-size:13px;cursor:pointer}
+.prod-hint-label{color:#5BA3D9;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.prod-hint-row{display:flex;justify-content:space-between;align-items:center;color:#0D2A4A;font-weight:600}
+.prod-hint-apply{color:#5BA3D9;font-size:12px;margin-top:4px;text-align:right}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <img src="https://vins94240.github.io/paris-caviar/logo.jpg" class="logo-img" alt="PC"/>
+    <div class="logo-text">
+      <span>Paris Caviar</span>
+      <span>Marche de Rungis</span>
+    </div>
+  </div>
+  <div id="badge">0 commande</div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="goTab('new',this)">+ Nouvelle</button>
+  <button class="tab" onclick="goTab('list',this)">Commandes</button>
+  <button class="tab" onclick="goTab('tarif',this)">Tarifs</button>
+</div>
+
+<!-- PAGE NOUVELLE COMMANDE -->
+<div class="page active" id="page-new">
+
+  <div id="promosBanner" style="display:none;background:#EBF5FF;border:1.5px solid #A8D4F5;border-radius:14px;padding:14px;margin-bottom:14px;overflow:hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:13px;font-weight:700;color:#0D2A4A;text-transform:uppercase;letter-spacing:.06em">🔥 Promos du jour</div>
+      <button onclick="showPromoPopup()" style="background:#0D2A4A;border:none;color:#A8D4F5;border-radius:8px;font-size:12px;font-weight:700;padding:5px 12px;cursor:pointer;font-family:Outfit,sans-serif">Voir tout</button>
+    </div>
+    <div style="position:relative">
+      <div id="promosBannerList" style="display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px"></div>
+    </div>
+    <div id="promosDots" style="display:flex;justify-content:center;gap:5px;margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Informations</div>
+    <label>Nom du client</label>
+    <div id="CAC">
+      <input type="text" id="clientName" placeholder="Taper pour rechercher ou nouveau client..." oninput="onClientInput()" autocomplete="off" autocorrect="off" autocapitalize="words"/>
+      <div class="cac-drop" id="CAC_DROP"></div>
+    </div>
+    <label style="margin-top:12px">Date de livraison</label>
+    <input type="date" id="delivDate"/>
+  </div>
+
+  <div class="hist" id="histBanner">
+    <div class="hist-hd">
+      <span id="hist-title">Derniere commande</span>
+    </div>
+    <div id="histItems"></div>
+    <button class="hist-all" onclick="applyAllHistory()">Reprendre la commande</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Produits</div>
+    <div id="lines"></div>
+    <button class="btn-add" onclick="addLine()">+ Ajouter un produit</button>
+  </div>
+
+  <button class="btn-main btn-save" onclick="saveOrder()">Valider et enregistrer</button>
+  <button class="btn-main btn-mail" onclick="mailOrder()">Envoyer a commandes@paris-caviar.fr</button>
+  <button class="btn-main btn-pdf" onclick="pdfOrder()">Generer un PDF</button>
+</div>
+
+<!-- PAGE COMMANDES -->
+<div class="page" id="page-list">
+  <div style="display:flex;gap:8px;margin-bottom:12px">
+    <input type="text" id="searchOrd" placeholder="Rechercher un client..." oninput="showOrders(this.value)" style="flex:1"/>
+    <button onclick="clearAll()" style="background:#FFF0F0;border:1px solid #FFCDD2;color:#E05252;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:Outfit,sans-serif;white-space:nowrap">Tout effacer</button>
+  </div>
+  <div id="orderList"></div>
+</div>
+
+<!-- PAGE TARIFS -->
+<div class="page" id="page-tarif">
+  <div class="srch">
+    <input type="text" placeholder="Rechercher un produit..." oninput="showTarif(this.value)"/>
+  </div>
+  <div id="tarifList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- POPUP PROMOS v1773676066 -->
+<div id="promoOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(13,42,74,.85);z-index:200;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:16px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 8px 32px rgba(13,42,74,.3)">
+    <div style="background:#0D2A4A;padding:16px 20px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="color:#A8D4F5;font-size:17px;font-weight:700">Promos du jour</div>
+        <div style="color:#A8C8E8;font-size:12px;margin-top:2px" id="promoDate"></div>
+      </div>
+      <button onclick="closePromo()" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;font-family:sans-serif;line-height:1">x</button>
+    </div>
+    <div id="promoList" style="max-height:340px;overflow-y:auto"></div>
+    <div style="padding:12px 14px;border-top:1.5px solid #E8F4FD;display:flex;gap:8px">
+      <button onclick="closePromo()" style="flex:1;padding:11px;background:#F0F6FF;border:1.5px solid #C8E6FA;border-radius:8px;color:#5BA3D9;font-size:14px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif">Continuer</button>
+      <button onclick="openAdmin()" style="padding:11px 16px;background:#EBF5FF;border:1.5px solid #A8D4F5;border-radius:8px;color:#5BA3D9;font-size:14px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif">Admin</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP ADMIN -->
+<div id="adminOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(13,42,74,.9);z-index:300;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:16px;width:100%;max-width:440px;overflow:hidden">
+    <div style="background:#0D2A4A;padding:16px 20px;color:#A8D4F5;font-size:16px;font-weight:700">Gestion des promos</div>
+    <div style="padding:16px">
+      <div id="adminPinBox">
+        <label>Code admin</label>
+        <input type="password" id="adminPin" placeholder="Code secret..." style="margin-bottom:10px"/>
+        <button onclick="checkPin()" style="width:100%;padding:12px;background:#0D2A4A;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif;margin-bottom:8px">Valider</button>
+        <button onclick="closeAdmin()" style="width:100%;padding:12px;background:#F0F6FF;color:#5BA3D9;border:1.5px solid #C8E6FA;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif">Annuler</button>
+      </div>
+      <div id="adminEditBox" style="display:none">
+        <div style="font-size:13px;color:#5BA3D9;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Coller le message WhatsApp</div>
+        <textarea id="adminPaste" placeholder="Coller le texte WhatsApp ici..." style="width:100%;height:100px;font-size:14px;padding:10px;background:#F7FBFF;border:1.5px solid #C8E6FA;border-radius:8px;color:#0D2A4A;font-family:sans-serif;margin-bottom:8px;resize:vertical"></textarea>
+        <button onclick="parseWhatsapp()" style="width:100%;padding:11px;background:#5BA3D9;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif;margin-bottom:14px">Importer le message</button>
+        <div style="font-size:13px;color:#5BA3D9;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Promos du jour</div>
+        <div id="adminRows"></div>
+        <button onclick="addPromoRow()" style="width:100%;padding:11px;background:#EBF5FF;border:2px dashed #A8D4F5;border-radius:8px;color:#5BA3D9;font-size:15px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif;margin-bottom:12px">+ Ajouter manuellement</button>
+        <button onclick="savePromos()" style="width:100%;padding:12px;background:#0D2A4A;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif;margin-bottom:8px">Enregistrer</button>
+        <button onclick="closeAdmin()" style="width:100%;padding:12px;background:#F0F6FF;color:#5BA3D9;border:1.5px solid #C8E6FA;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var CAT = [
+["Poissons PB","Bar Cotier A.N.E. 500/1000 kg",18.9,"kg"],
+["Poissons entiers","Lieu Jaune 2/4 PB Bretagne",15.9,"kg"],
+["Filets","Dos de Lieu noir 300+SP x 3",19.9,"kg"],
+["Poissons PB","Bar Cotier ANE 1/2 kg",19.8,"kg"],
+["Poissons entiers","Lieu Jaune 5+ LIGNE EXTRA",24.9,"kg"],
+["Filets","Dos cabillaud MSC 400+ SP x3",32.9,"kg"],
+["Poissons PB","Bar Cotier A.N.E. 2/3 kg",24.9,"kg"],
+["Poissons entiers","Lieu Noir 2/4",13.9,"kg"],
+["Filets","Dos cabillaud 800/+ AP",39.9,"kg"],
+["Poissons PB","Bar Cotier A.N.E. 3/4",32.8,"kg"],
+["Poissons entiers","Carrelet 500/700 x 6",19.9,"kg"],
+["Filets","Anneau encornet saumurex5",15.9,"kg"],
+["Poissons PB","Dorade Royal 2/3 Sauvage PB",0,"kg"],
+["Poissons entiers","Poulpe frais 2/3",19.5,"kg"],
+["Filets","Lamelle encornet saumurex5",12.95,"kg"],
+["Poissons PB","Dorade Royal 3/4 Sauvage PB",0,"kg"],
+["Poissons entiers","Aile de raie PELEE 0,7/1 x6 EXTRA",17.8,"kg"],
+["Filets","Tentacule encorn saumurex5",12.95,"kg"],
+["Poissons PB","Barbue 1/2 PB ANE",32.5,"kg"],
+["Poissons entiers","Aile de raie 1,5+ A/P Bretag",17.8,"kg"],
+["Filets","Filet d' Eglefin 100/200 x 3",16.9,"kg"],
+["Poissons PB","Barbue 2/3 PB ANE",38.9,"kg"],
+["Poissons entiers","Fletan Sterling 2/3",16.95,"kg"],
+["Filets","Coeur Espadon dec s/v",17.9,"kg"],
+["Poissons PB","Bouille A.N.E.melange de poisson x 10",10.6,"kg"],
+["Poissons entiers","Carrelet 1/2 LIGNE EXTRA",15.4,"kg"],
+["Filets","Filet Lieu Jaune A/P x5",28.5,"kg"],
+["Poissons PB","Cabillaud SKREI 4/6 VDK",19.9,"kg"],
+["Poissons entiers","Sole 300/400 ANE PB",33.0,"kg"],
+["Filets","Filet de Julienne 200+ SPx6",16.8,"kg"],
+["Poissons PB","Cabillaud ANE 6/8 VDK",0,"kg"],
+["Poissons entiers","Sole 400/500 ANE PETIT BATEAU",29.9,"kg"],
+["Filets","Filet Lieu noir 200/400 SPx5",16.9,"kg"],
+["Poissons PB","Merlu 4/5 PB BRETAGNE",13.9,"kg"],
+["Poissons entiers","Sole 500/600 ANE PETIT BATEAU",34.5,"kg"],
+["Filets","Filet Lingue bleue S/P EXTRA x5",16.8,"kg"],
+["Poissons PB","Encornet A.N.E. 300/500 X 3",26.8,"kg"],
+["Poissons entiers","Sole 600/800 ANE PETIT BATEAU",36.0,"kg"],
+["Filets","Filet de Merlan PAP x 3",16.9,"kg"],
+["Poissons PB","Encornet A.N.E. 100/200 X 3",24.9,"kg"],
+["Poissons entiers","Saint Pierre 800/1000 ANE",26.3,"kg"],
+["Filets","Filet de Loup 150/+ s/p x 3",15.9,"kg"],
+["Poissons PB","Joue de lotte x 3 kg",29.0,"kg"],
+["Poissons entiers","Saint Pierre 1/2 A.N.E.",19.8,"kg"],
+["Filets","Filet de Merlu A/P x 5",28.9,"kg"],
+["Poissons PB","Lotte 1/2 A.N.E.",24.9,"kg"],
+["Poissons entiers","Saint Pierre 2/3",32.5,"kg"],
+["Filets","Filet de Carrelet s/p X 3",16.9,"kg"],
+["Poissons PB","Lotte 2/4 A.N.E.P BATEAU",26.8,"kg"],
+["Poissons entiers","Turbot 1/2 A.N.E",39.9,"kg"],
+["Filets","Filet de Perche x3",14.8,"kg"],
+["Poissons PB","Lotte 4/6 A.N.E P BATEAU",29.95,"kg"],
+["Poissons entiers","Turbot 2/3 A.N.E",49.8,"kg"],
+["Filets","Filet de Sardine a/p x 3",12.0,"kg"],
+["Poissons PB","Merlan de ligne 300/500",13.2,"kg"],
+["Poissons entiers","Turbot 3/4 A.N.E",58.6,"kg"],
+["Filets","Filet Saumon Ecosse sup A/P trim B",23.5,"kg"],
+["Poissons PB","Mulet Noir 1/2 Vendee",15.9,"kg"],
+["Poissons entiers","Turbot 4/6 A.N.E",76.3,"kg"],
+["Filets","Filet Saumon Ecosse LR A/P trim B",25.5,"kg"],
+["Poissons PB","Sebaste sauvage 700+ EXTRA",12.9,"kg"],
+["Poissons entiers","Turbot 9+ ANE",0,"kg"],
+["Filets","Filet Saumon Norvege A/P trim B",18.9,"kg"],
+["Poissons PB","Saumonette A.N.E. x 6",9.6,"kg"],
+["Poissons entiers","Rouget Barbet 200/300 vendee",29.9,"kg"],
+["Filets","Filet de Maquereaux AP",19.9,"kg"],
+["Poissons PB","Dorade Sauvage grise 600/800",12.9,"kg"],
+["Poissons entiers","Rouget Grondin FR 1/+",0,"kg"],
+["Filets","Filet de Merou 600+ A/P x 5",17.9,"kg"],
+["Poissons PB","Supion entier dcgl A.N.E. x 3",12.95,"kg"],
+["Poissons entiers","Maigre 4/5 sauvage Medit",17.9,"kg"],
+["Filets","Filet Rouget Grondin A/P x3",16.9,"kg"],
+["Poissons PB","Thon Albacore VDK extra 70/80",18.2,"kg"],
+["Poissons entiers","Saumon de fontaine 800/+ France",0,"kg"],
+["Filets","Preparation longe thon dec",17.9,"kg"],
+["Poissons PB","Perroquet 2/4 x2 pieces",17.6,"kg"],
+["Poissons entiers","Saumon Ecosse 7/8 LR IKEJIME",18.9,"kg"],
+["Filets","Longe Thon ligne Sashimi dec",29.9,"kg"],
+["Poissons PB","Dente rose 4/+",22.4,"kg"],
+["Poissons entiers","Saumon Ecosse 5/6 SUP",17.5,"kg"],
+["Filets","Coeur Thon Albacor S/V",32.0,"kg"],
+["Poissons PB","Vivanneau 3/6",23.8,"kg"],
+["Poissons entiers","Saumon Irlande 5/6 BIO",22.0,"kg"],
+["Filets","Filet truiteFR 200/400A/Px4",15.9,"kg"],
+["Poissons PB","Espadon VDK",17.9,"kg"],
+["Poissons entiers","Saumon Norvege 5/6",15.9,"kg"],
+["Filets","Filet Cabillaud 1KG + Ap",24.6,"kg"],
+["Poissons PB","Merou 10/20",23.8,"kg"],
+["Poissons entiers","Maquereaux 3/500x6",14.9,"kg"],
+["Filets","Filet de Bar 160/180 A/P X 5",26.8,"kg"],
+["Poissons PB","Eperlan",0,"kg"],
+["Poissons entiers","Sardine Bretonne x4",6.9,"kg"],
+["Filets","Filet de Dorade 160/180 A/ X 5",24.6,"kg"],
+["Congele","Gambas Black Tiger 4/6 800 gr",29.8,"bt"],
+["Eau douce","Sandre 2/4 extra",18.9,"kg"],
+["Congele","Gambas Black Tiger 6/8 800 gr",22.5,"bt"],
+["Eau douce","Omble Chevalier 600/800",17.9,"kg"],
+["Congele","Gambas Black Tiger 8/12 800 gr",17.9,"bt"],
+["Eau douce","Brochet 2/4",15.6,"kg"],
+["Congele","Gambas BlackTiger 16/20 800gr",13.9,"bt"],
+["Eau douce","Truite France 2/3 Pisciculture de L'Eure",16.9,"kg"],
+["Congele","Gambas BlackTiger 21/30 800gr",12.9,"bt"],
+["Eau douce","Truite portion 250/300 videe x3",12.8,"kg"],
+["Congele","Queue crevette Decor S/C 8/12 800 gr",18.9,"bt"],
+["Eau douce","Truite 3/4 Ecosse",16.9,"kg"],
+["Congele","Queue crevette Decor S/C 16/20 800 gr",16.9,"bt"],
+["Eau douce","BAR / DORADE 300/400 CANNES X 6KG",14.9,"kg"],
+["Congele","Queue crevette Decor S/C 21/25 800 gr",16.9,"bt"],
+["Eau douce","BAR / DORADE 400/600 CANNES X 6KG",15.9,"kg"],
+["Congele","Queue Langouste 450GR X 4,5KG",79.8,"bt"],
+["Eau douce","BAR / DORADE 600/800 CANNES X 6KG",17.9,"kg"],
+["Congele","Fish & Chips 130/160gr X 5kg",12.9,"bt"],
+["Eau douce","BAR / DORADE 800/1000 CANNES X 6KG",19.9,"kg"],
+["Congele","Aile de Raie 450/900 USA X 5KG",13.9,"bt"],
+["Eau douce","BAR / DORADE 1/1,5 CANNES X 6KG",24.9,"kg"],
+["Congele","Tentacule poulpe cuite 70/120 x 6 kg",44.9,"bt"],
+["Eau douce","FILET DE BAR/DORADE CANNES 220/240",36.8,"kg"],
+["Congele","Poulpe 2/3 congele Espagne X 14",16.9,"bt"],
+["Eau douce","FILET DE BAR/DORADE CANNES 120/140",29.9,"kg"],
+["Congele","Tube d'encornet U5 X 10 X 800 gr",13.9,"bt"],
+["Eau douce","FILET DE BAR/DORADE CANNES 160/180",32.9,"kg"],
+["Congele","Thon Saku x 10 kg",39.75,"bt"],
+["Congele","Seiche 20/40 x 10",14.9,"bt"],
+["Elevage","Bar 300/400 X 17 pieces ASC",12.9,"kg"],
+["Congele","Calamar Romaine 6 x 1",9.9,"bt"],
+["Elevage","Bar 400/600 X 12 pieces ASC",14.9,"kg"],
+["Congele","Escargot EXTRA GROS X4DZ 7 SACHETS",38.6,"bt"],
+["Elevage","Bar 600/800 x 9 pieces ASC",15.1,"kg"],
+["Congele","Escargot BBG X 8DZ COLIS 7 SACHETS",52.0,"bt"],
+["Elevage","Bar 800/1000 X 10 pieces ASC",17.9,"kg"],
+["Congele","Crevettes Torpedo 10 X 700GR",16.9,"bt"],
+["Elevage","Bar 1/1,5 x 9 pieces ASC",20.9,"kg"],
+["Congele","Longe thon Albacor surgele x 6 kg",18.5,"bt"],
+["Elevage","Bar 2/3 Esp",28.9,"kg"],
+["Congele","Cuisses de Grenouille 6/8 10x800gr",14.9,"bt"],
+["Elevage","Dorade 300/400 x 17 pieces ASC",12.9,"kg"],
+["Congele","Filet black cod MSC AP 600/800 X 13,62",36.0,"bt"],
+["Elevage","Dorade 400/600 x 12 pieces ASC",13.9,"kg"],
+["Congele","Filet de Seriole A/P X Australie 10KG",29.8,"bt"],
+["Elevage","Dorade 600/800 x 9 pieces ASC",14.9,"kg"],
+["Congele","Filet St Pierre AP 150/200gr (0,800) X 5",15.5,"bt"],
+["Elevage","Dorade 800/1000 x 6 pieces ASC",16.2,"kg"],
+["Congele","Filet Rouget IQF 80/120 X 10",17.9,"bt"],
+["Elevage","Sole 400/500",35.9,"kg"],
+["Congele","KING CRABE 0,8/1,2 X5KG",127.0,"bt"],
+["Elevage","Sole 500/600",35.9,"kg"],
+["Congele","Cocktail Fruits de mer 10 x 800 gr",12.8,"bt"],
+["Elevage","Sole 600/800",0,"kg"],
+["Congele","Calamar entier de Californie USA X 1KG",13.8,"bt"],
+["Elevage","Turbot 1/1,5",24.9,"kg"],
+["Congele","Friture d'eperlan 10 x 1",8.9,"bt"],
+["Elevage","Turbot 2/3",21.9,"kg"],
+["Congele","Petit Calamar PRE FRIT x 8kg",14.95,"bt"],
+["Elevage","Turbot 3/4",32.1,"kg"],
+["Coquillages","Amande 15/25p FR x 3",3.9,"kg"],
+["Homard","Homard A.N.O. 400/600",38.9,"kg"],
+["Langoustines","Crevette cuite Equateur 40/60 x2",13.9,"kg"],
+["Coquillages","Araignees de mer 600/800 FR x 10",11.3,"kg"],
+["Homard","Homard A.N.O. 600/800",39.9,"kg"],
+["Langoustines","Crevette cuite Equateur 30/40 x2",14.9,"kg"],
+["Coquillages","Bigorneaux gros A.N.E. x 5",12.9,"kg"],
+["Homard","Homard A.N.O 800/1000",0,"kg"],
+["Langoustines","Crevette cuite Equateur 20/30 x 2",16.9,"kg"],
+["Coquillages","Bigorneaux Jumbo A.N.E. x 5",14.1,"kg"],
+["Homard","Homard Europe 400/600",69.9,"kg"],
+["Langoustines","Crevette cuite Madagascar LR 40/60 x 2",33.0,"kg"],
+["Coquillages","Bulot vivant FR x 6",14.95,"kg"],
+["Homard","Homard Euro 600/800",69.9,"kg"],
+["Langoustines","Crevette cuite Madagascar LR 30/40 x 2",37.0,"kg"],
+["Coquillages","Bulot cuit FR x 3",14.95,"kg"],
+["Homard","Homard Euro EPT -700",58.0,"kg"],
+["Langoustines","Crevette cuite Madagascar LR 20/30 x 2",40.85,"kg"],
+["Coquillages","Clams moyen A.N.E. x 3",0,"kg"],
+["Homard","Tete Homard Americain cru cgl x 5 kg",9.9,"kg"],
+["Coquillages","Coque FR x 3 40/55",12.8,"kg"],
+["Cuissons","Tourteaux 600/800 x 6",17.5,"kg"],
+["Coquillages","Couteaux 15/20p x 3",12.8,"kg"],
+["Langouste","Langouste rouge vivante 1,3/1,8",127.3,"kg"],
+["Cuissons","Tourteaux 400/600 x 6",17.5,"kg"],
+["Coquillages","Oursin Islande x3",26.9,"kg"],
+["Langouste","Langouste rouge vivante 1/1,2",127.3,"kg"],
+["Cuissons","Pince de tourteaux cuite 12/20 x2",26.4,"kg"],
+["Coquillages","Crabe Vert /Etrilles x 5",9.9,"kg"],
+["Cuissons","Pince de tourteaux cuite 8/12 x2",29.5,"kg"],
+["Coquillages","Ecrevisse Pattes blanche 16/20 x 5",0,"kg"],
+["Langoustines","Langoustine Ecosse 5/9 x 3 preco",38.5,"kg"],
+["Cuissons","Pince de tourteaux cuite 4/8 x2",32.0,"kg"],
+["Coquillages","Ecrevisse Pattes blanche 20/30 x 3",0,"kg"],
+["Langoustines","Langoustine Ecosse 10/15 x 3 preco",28.9,"kg"],
+["Cuissons","Araignees cuite coupees",13.0,"kg"],
+["Coquillages","Moule PAC MSC Hollande 6 x 2 KG",6.9,"kg"],
+["Langoustines","Langoustine Ecosse 16/20 x 3 preco",22.6,"kg"],
+["Cuissons","Homard europ 4/600 cuits surg",73.2,"kg"],
+["Coquillages","Moules Espagne x 3",6.9,"kg"],
+["Langoustines","Langoustine Ecosse 20/30 x 3 preco",16.5,"kg"],
+["Cuissons","Langoustine 10/15 cuites surg",10.0,"kg"],
+["Coquillages","Moules Bouchot X5 OU X15",6.9,"kg"],
+["Langoustines","Langoustine vivante 8/12 Ecosse",46.0,"kg"],
+["Coquillages","Passe Pierre / Salicorne",0,"kg"],
+["Coquillages","Palourde M x 3",22.5,"kg"],
+["Cuissons","Langouste cuite Caraibe 630/690 X10",38.25,"kg"],
+["Coquillages","Palourde G x 3",27.8,"kg"],
+["Saint Jacques","Coquille st Jacques DIEPPE M X12",6.95,"kg"],
+["Cuissons","Langoustine 17/20 crue surg 6x800gr",17.8,"kg"],
+["Coquillages","Palourde TG X 3",29.6,"kg"],
+["Saint Jacques","Coquille st Jacques G X12",9.95,"kg"],
+["Cuissons","Langoustine 13/16 crue surg 6x800gr",22.6,"kg"],
+["Coquillages","Praire",12.5,"kg"],
+["Saint Jacques","Noix St Jacques Fr extra a/c x2",36.0,"kg"],
+["Coquillages","Bigorneaux cuit gros X3",16.0,"kg"],
+["Saint Jacques","Noix St Jacques Fr 3/4 a/c x2",44.0,"kg"],
+["Algues","Dulse x1kg",14.9,"kg"],
+["Coquillages","Tourteaux vivant 600/800 x 6",10.55,"kg"],
+["Saint Jacques","Noix Saint Jacques Ecosse A/C X2",39.0,"kg"],
+["Algues","Haricot de mer x1kg",21.5,"kg"],
+["Coquillages","Tourteaux vivant 400/600 x 6",9.55,"kg"],
+["Saint Jacques","Pre Noix Saint Jacques 10/20 US",52.0,"kg"],
+["Algues","Kombu royal x1kg",21.5,"kg"],
+["Coquillages","Crevette grise cuite x 3kg",29.8,"kg"],
+["Saint Jacques","Pre Noix Saint Jacques 10/20 Japon",49.0,"kg"],
+["Algues","Wakame x1kg",14.9,"kg"],
+["Algues","Melange 3 algues x1kg",15.9,"kg"],
+["Algues","Tartare algues x1kg",29.8,"kg"],
+["Algues","CITRON CAVIAR",140.0,"kg"],
+["Salaison","Saumon fume Ecosse Entier 1,8/2,2",45.0,"pc"],
+["Salaison","Oeuf cabillaud fume s/v",55.6,"pc"],
+["Salaison","Ventreche thon albacore huile olive110grx24",5.6,"pc"],
+["Salaison","Saumon fume Ecosse Tr MAIN 1,7/2,2",49.9,"pc"],
+["Salaison","Poulpe nature 1 kg",28.9,"pc"],
+["Salaison","Mini sardine huile d'olive 20/25 130gr x24",5.8,"pc"],
+["Salaison","Saumon fume tranche machine",39.9,"pc"],
+["Salaison","Salade Calamars l'huile x 1 kg",19.9,"pc"],
+["Salaison","Terrine d'ecrevisse a l'Armoricaine 0,840kg",0,"pc"],
+["Salaison","Chutes de Saumon fume sachet 1 kg",27.9,"pc"],
+["Salaison","Salade de fruits de mer x 1 kg",19.9,"pc"],
+["Salaison","Terrine Duo au tourteau, St Jacques et Algues kg",0,"pc"],
+["Salaison","Coeur de Saumon fume Ecosse 300 gr",61.0,"pc"],
+["Salaison","Filet Hareng a l'huile x 2 kg",18.9,"pc"],
+["Salaison","Accras morue 1kg",17.9,"pc"],
+["Salaison","Plaques traiteurs Ecosse 6tr 400gr",25.0,"pc"],
+["Salaison","Filet hareng doux s/v 1 kg",16.8,"pc"],
+["Salaison","Panache 4 Algues 1 kg",22.0,"pc"],
+["Salaison","Saumon gravlax Ecosse TR",42.9,"pc"],
+["Salaison","Crevette decortiquee Moyen 200/300 pc/lbs",16.9,"pc"],
+["Salaison","Saumon BIO fume Ecos Tr 1,7/2,2",55.9,"pc"],
+["Salaison","Crevette decortiquee Grosse 100/200",18.9,"pc"],
+["Salaison","Surimi rouleau 2 kg",13.5,"pc"],
+["Salaison","Espadon fume S/V",49.9,"pc"],
+["Salaison","Crevette decortiquee SUPER 60/90",28.8,"pc"],
+["Salaison","surimi miette 500 gr",13.5,"pc"],
+["Salaison","Thon fume S/V",40.6,"pc"],
+["Salaison","Cocktail fruit mer Saumure 1,6 kg",15.9,"pc"],
+["Salaison","Filet de cabillaud facons FISH&CHIPS 800gr",21.5,"pc"],
+["Salaison","Filet maquereaux poivre x 2 kg",19.9,"pc"],
+["Salaison","Queue ecrevisse 1,6 kg",31.5,"pc"],
+["Salaison","Filet truite fumee 600/800",48.0,"pc"],
+["Salaison","Hareng Arenkha 100 gr",16.5,"pc"],
+["Salaison","Encre seiche pot 500ml",29.5,"pc"],
+["Salaison","Fletan fume Tranche",46.7,"pc"],
+["Salaison","Hareng Arenkha 940 gr",70.8,"pc"],
+["Salaison","Encre seiche x50 sachets",15.9,"pc"],
+["Salaison","Filet d'anguille fume 100 gr",11.5,"pc"],
+["Salaison","Oeufs de lump noir/rouge 100 gr",6.8,"pc"],
+["Salaison","Soupe de poisson 85 x6",7.9,"pc"],
+["Salaison","Haddock G x 3 kg J.C DAVID",34.9,"pc"],
+["Salaison","Oeufs de mulet Poutargue 150/200",127.0,"pc"],
+["Salaison","Soupe de poisson 85 cl Hennequin X6",8.9,"pc"],
+["Salaison","Haddock M x 3 kg J.C DAVID",32.9,"pc"],
+["Salaison","Oeufs de saumon Hard Shell 100 gr",18.9,"pc"],
+["Salaison","Rouille 100 gr x 12",3.9,"pc"],
+["Salaison","Rollmopps x 1,6 kg",19.95,"pc"],
+["Salaison","Oeufs de saumon Hard Shell 500 gr",86.6,"pc"],
+["Salaison","Salicorne pot 85 CL",10.9,"pc"],
+["Salaison","Blinis x 4 /mini x16",4.8,"pc"],
+["Salaison","Oeuf de truite en 500 gr",49.6,"pc"],
+["Salaison","Bisque de homard 85 cl x 6",8.8,"pc"],
+["Salaison","Crevette decortiquee a l'ail",36.0,"pc"],
+["Salaison","Oeufs de truite 100 gr",14.8,"pc"],
+["Salaison","Chair Crabe past ANE 454 gr X6",26.6,"pc"],
+["Salaison","Coque dec s/at x 1 kg",31.0,"pc"],
+["Salaison","Tobiko Orange / Wasabi 80 gr",13.9,"pc"],
+["Salaison","Pinces de Tourteaux cuites 8/12 x 2 KG",39.6,"pc"],
+["Salaison","Moule dec s/at x 1 kg",19.8,"pc"],
+["Salaison","Quenelle brochet x 2 240 gr",6.9,"pc"],
+["Salaison","Chair de touteaux 100% X 500 gr",115.0,"pc"],
+["Salaison","Brandade Morue 4 kg",15.9,"pc"],
+["Salaison","Tarama premium 70% 90 GR",6.3,"pc"],
+["Salaison","Chair d'araignee x 500gr x 10",115.0,"pc"],
+["Salaison","Miette de morue salee s/aretes X 5 KG",17.6,"pc"],
+["Salaison","Tarama premium 70% 500 GR",27.6,"pc"],
+["Salaison","Crevette grise cuit jumbo s/a 1kg",34.9,"pc"],
+["Salaison","Filet morue salee 400/700gr x 5 kg",24.1,"pc"],
+["Salaison","Tarama corail d'oursin 1kg",23.9,"pc"],
+["Salaison","Filet sardine basilic x 800 gr",15.8,"pc"],
+["Salaison","Tarama crabe 1 kg",23.9,"pc"],
+["Salaison","Corail oursin 120gr",25.6,"pc"],
+["Salaison","Filet anchois marine huile x800 gr",15.5,"pc"],
+["Salaison","Tarama rose 1 kg",17.5,"pc"],
+["Salaison","Tarama truffe 500gr",16.9,"pc"],
+["Salaison","Filet anchois marine provencale x800 gr",15.5,"pc"],
+["Salaison","Tarama blanc 1 kg",17.5,"pc"],
+["Salaison","Tarama truffe 100gr",4.9,"pc"],
+["Salaison","Anchois Sel Perou boite fer 4/4",21.0,"pc"],
+["Salaison","Anguille fumee entiere 800/1kg",60.0,"pc"],
+["Salaison","Chair escargot bte 4/4 8 dz TG",24.6,"pc"],
+["Caviar","Caviar BAERI DU BASSIN 50gr",45.0,"pc"],
+["Caviar","Caviar BAERI DU BASSIN 100gr",75.0,"pc"],
+["Caviar","Caviar BAERI DU BASSIN 200gr",150.0,"pc"],
+["Caviar","Caviar BAERI DU BASSIN 1000gr",300.0,"pc"],
+["Caviar","Caviar OSCIETRA 50gr",31.0,"pc"],
+["Caviar","Caviar OSCIETRA 100gr",52.0,"pc"],
+["Caviar","Caviar OSCIETRA 200gr",103.0,"pc"],
+["Caviar","Caviar OSCIETRA 1000gr",206.0,"pc"],
+["Caviar","Caviar BELUGA IMPERIAL 50gr",57.0,"pc"],
+["Caviar","Caviar BELUGA IMPERIAL 100gr",95.0,"pc"],
+["Caviar","Caviar BELUGA IMPERIAL 200gr",190.0,"pc"],
+["Caviar","Caviar BELUGA IMPERIAL 1000gr",380.0,"pc"],
+["Huitres","L'HUITRE PARIS CAVIAR N 4 (48 pcs)",29.9,"bt"],
+["Huitres","L'HUITRE PARIS CAVIAR N 4 (96 pcs)",59.9,"bt"],
+["Huitres","Fines de Claire N 3 (48 pcs)",38.8,"bt"],
+["Huitres","Fines de Claire N 3 (96 pcs)",64.5,"bt"],
+["Huitres","Fines de Claire N 3 (180 pcs)",128.0,"bt"],
+["Huitres","Fines de Claire N 2 (48 pcs)",49.9,"bt"],
+["Huitres","Fines de Claire N 2 (96 pcs)",89.5,"bt"],
+["Huitres","Speciales N 4 (48 pcs)",59.9,"bt"],
+["Huitres","Speciales N 4 (96 pcs)",99.9,"bt"],
+["Huitres","Speciales N 3 (48 pcs)",76.5,"bt"],
+["Huitres","Speciales N 3 (96 pcs)",135.0,"bt"],
+["Huitres","Speciales N 2 (48 pcs)",82.5,"bt"],
+["Huitres","Speciales N 2 (96 pcs)",155.0,"bt"],
+["Huitres","Cancale N 3 (48 pcs)",36.5,"bt"],
+["Huitres","Cancale N 3 (96 pcs)",69.9,"bt"],
+["Huitres","Cancale N 3 (180 pcs)",129.9,"bt"],
+["Huitres","Cancale N 2 (48 pcs)",42.9,"bt"],
+["Huitres","Cancale N 2 (96 pcs)",79.9,"bt"],
+["Huitres","Cancale N 2 (180 pcs)",119.9,"bt"]
+];
+
+var CUTS = [
+  ["autre","Autre","Instruction speciale"],
+  ["darne","Darne","Avec arete"],
+  ["desarete","Desarete","Aretes retirees"],
+  ["entier","Entier","Non transforme"],
+  ["filet_ap","Filet A/P","Avec peau"],
+  ["filet_gratte","Filet gratte","Ecailles grattees"],
+  ["filet_pare","Filet pare","Pare et nettoye"],
+  ["filet_sp","Filet S/P","Sans peau"],
+  ["pac","PAC","Pret a cuire"],
+  ["pave","Pave","Sans arete"],
+  ["portefeuille","Portefeuille","Ouvert en portefeuille"],
+  ["spnspb","SPNSPB","Sans peau noire et blanche"],
+  ["troncon","Troncon","En morceaux"],
+  ["vider","Vider","Visceres retires"],
+  ["gratter","Gratter","Ecailles grattees"]
+];
+
+var CL = {};
+for (var i = 0; i < CUTS.length; i++) CL[CUTS[i][0]] = CUTS[i][1];
+
+var orders = (function() {
+  try { return JSON.parse(localStorage.getItem('pcord3') || '[]'); } catch(e) { return []; }
+})();
+
+var lc = 0;
+
+function save() { localStorage.setItem('pcord3', JSON.stringify(orders)); }
+function fmt(n) { return (n||0).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' e'; }
+function fmtD(d) { if (!d) return ''; var p = d.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; }
+function updateBadge() { document.getElementById('badge').textContent = orders.length + ' commande' + (orders.length > 1 ? 's' : ''); }
+function toast(msg, err, info) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (err ? ' err' : '') + (info ? ' info' : '');
+  setTimeout(function() { t.classList.add('show'); }, 10);
+  setTimeout(function() { t.classList.remove('show'); }, 2800);
+}
+
+// ── CLIENT ──
+function saveClient(n) {
+  if (!n) return;
+  var c = [];
+  try { c = JSON.parse(localStorage.getItem('pc_clients') || '[]'); } catch(e) {}
+  for (var i = 0; i < c.length; i++) if (c[i].toLowerCase() === n.toLowerCase()) return;
+  c.unshift(n);
+  localStorage.setItem('pc_clients', JSON.stringify(c));
+}
+
+function getKnownClients() {
+  var cls = [];
+  try { cls = JSON.parse(localStorage.getItem('pc_clients') || '[]'); } catch(e) {}
+  var s = {}, r = [];
+  for (var i = 0; i < cls.length; i++) { var k = cls[i].toLowerCase(); if (!s[k]) { s[k] = true; r.push(cls[i]); } }
+  for (var i = 0; i < orders.length; i++) { var n = orders[i].client; if (n && !s[n.toLowerCase()]) { s[n.toLowerCase()] = true; r.push(n); } }
+  return r;
+}
+
+function onClientInput() {
+  var q = document.getElementById('clientName').value.trim().toLowerCase();
+  var drop = document.getElementById('CAC_DROP');
+  var clients = getKnownClients();
+  var matches = [];
+  for (var i = 0; i < clients.length; i++) if (!q || clients[i].toLowerCase().indexOf(q) >= 0) matches.push(clients[i]);
+  drop.innerHTML = '';
+  if (!matches.length) { drop.classList.remove('open'); return; }
+  for (var i = 0; i < matches.length; i++) {
+    (function(name) {
+      var last = getLastOrder(name);
+      var el = document.createElement('div');
+      el.className = 'cac-item';
+      el.innerHTML = '<div class="cac-name">' + name + '</div>' + (last ? '<div class="cac-sub">Derniere: ' + fmtD(last.date) + '</div>' : '');
+      var done = false;
+      el.addEventListener('touchend', function(e) { e.preventDefault(); if (!done) { done = true; pickClient(name); } });
+      el.addEventListener('mousedown', function(e) { e.preventDefault(); if (!done) { done = true; pickClient(name); } });
+      drop.appendChild(el);
+    })(matches[i]);
+  }
+  drop.classList.add('open');
+}
+
+function pickClient(name) {
+  document.getElementById('clientName').value = name;
+  document.getElementById('CAC_DROP').classList.remove('open');
+  showHistory(name);
+}
+
+function getLastOrder(name) {
+  for (var i = 0; i < orders.length; i++) if (orders[i].client === name) return orders[i];
+  return null;
+}
+
+function showHistory(name) {
+  var last = getLastOrder(name);
+  var banner = document.getElementById('histBanner');
+  if (!last) { banner.style.display = 'none'; return; }
+  banner.style.display = 'block';
+  document.getElementById('hist-title').textContent = 'Derniere commande du ' + fmtD(last.date);
+  var html = '';
+  for (var i = 0; i < last.lines.length; i++) {
+    var l = last.lines[i];
+    var tags = '';
+    if (l.cuts && l.cuts.length) { var cn = []; for (var j = 0; j < l.cuts.length; j++) cn.push(CL[l.cuts[j]] || l.cuts[j]); tags += '<span class="htag">' + cn.join(' + ') + '</span>'; }
+    if (l.sv) tags += '<span class="htag" style="background:#D4EDFF;color:#1A6FA0">Sous vide</span>';
+    html += '<div class="hit" id="HI' + i + '" onclick="applyLine(' + i + ')">'
+      + '<div class="hit-name">' + l.n + '</div>'
+      + '<div class="hit-d">' + l.qty + ' ' + l.u + ' x ' + fmt(l.pr) + '/' + l.u + (tags ? ' ' + tags : '') + '</div>'
+      + '</div>';
+  }
+  document.getElementById('histItems').innerHTML = html;
+}
+
+function applyLine(idx) {
+  var name = document.getElementById('clientName').value.trim();
+  var last = getLastOrder(name);
+  if (!last || idx >= last.lines.length) return;
+  var l = last.lines[idx];
+  addLine();
+  var id = lc;
+  document.getElementById('AI' + id).value = l.n;
+  document.getElementById('ASN' + id).textContent = l.n;
+  document.getElementById('ASP' + id).textContent = fmt(l.pr) + '/' + l.u;
+  document.getElementById('AS' + id).style.display = 'block';
+  document.getElementById('AI' + id).style.display = 'none';
+  document.getElementById('PR' + id).value = l.pr;
+  document.getElementById('QT' + id).value = l.qty;
+  setU(id, (l.u === 'pc' || l.u === 'bt') ? 'pc' : 'kg');
+  if (l.cuts && l.cuts.length) {
+    document.getElementById('CT' + id).classList.add('active');
+    document.getElementById('CP' + id).classList.add('open');
+    for (var j = 0; j < l.cuts.length; j++) { var cb = document.getElementById('CB' + id + '_' + l.cuts[j]); if (cb) { cb.checked = true; document.getElementById('CO' + id + '_' + l.cuts[j]).classList.add('on'); } }
+    updateCutLabel(id);
+  }
+  if (l.sv) document.getElementById('SV' + id).classList.add('active');
+  if (l.cnote) document.getElementById('CN' + id).value = l.cnote;
+  calcLine(id);
+  var hi = document.getElementById('HI' + idx);
+  if (hi) { hi.style.opacity = '0.4'; hi.style.pointerEvents = 'none'; }
+  toast(l.n + ' ajoute');
+}
+
+function applyAllHistory() {
+  var name = document.getElementById('clientName').value.trim();
+  var last = getLastOrder(name);
+  if (!last) return;
+  document.getElementById('lines').innerHTML = '';
+  lc = 0;
+  for (var i = 0; i < last.lines.length; i++) applyLine(i);
+  toast('Commande reprise');
+}
+
+// ── AUTOCOMPLETE PRODUIT ──
+function setupAC(id) {
+  var inp = document.getElementById('AI' + id);
+  inp.addEventListener('input', function() { showAC(id); });
+  inp.addEventListener('focus', function() { showAC(id); });
+  document.addEventListener('touchstart', function(e) { if (!e.target.closest('#AW' + id)) closeAC(id); }, { passive: true });
+  document.addEventListener('mousedown', function(e) { if (!e.target.closest('#AW' + id)) closeAC(id); });
+}
+
+function showAC(id) {
+  var inp = document.getElementById('AI' + id);
+  var drop = document.getElementById('AD' + id);
+  var q = inp.value.toLowerCase().trim();
+  drop.innerHTML = '';
+  var groups = {}, order = [];
+  for (var i = 0; i < CAT.length; i++) {
+    var p = CAT[i];
+    if (!q || p[1].toLowerCase().indexOf(q) >= 0 || p[0].toLowerCase().indexOf(q) >= 0) {
+      if (!groups[p[0]]) { groups[p[0]] = []; order.push(p[0]); }
+      groups[p[0]].push({ idx: i, p: p });
+    }
+  }
+  var count = 0;
+  for (var g = 0; g < order.length && count < 40; g++) {
+    var grp = order[g];
+    var titleEl = document.createElement('div');
+    titleEl.className = 'ac-group';
+    titleEl.textContent = grp;
+    drop.appendChild(titleEl);
+    for (var j = 0; j < groups[grp].length && count < 40; j++) {
+      (function(item) {
+        var el = document.createElement('div');
+        el.className = 'ac-item';
+        var pr = item.p[2] ? item.p[2] + 'e/' + item.p[3] : 'NC';
+        el.innerHTML = '<div class="ac-item-name">' + item.p[1] + '</div><div class="ac-item-price">' + pr + '</div>';
+        var done = false;
+        el.addEventListener('touchend', function(e) { e.preventDefault(); if (!done) { done = true; pickProd(id, item.idx); } });
+        el.addEventListener('mousedown', function(e) { e.preventDefault(); if (!done) { done = true; pickProd(id, item.idx); } });
+        drop.appendChild(el);
+        count++;
+      })(groups[grp][j]);
+    }
+  }
+  if (count === 0) {
+    var el = document.createElement('div');
+    el.className = 'ac-item';
+    el.style.color = '#8A9BB0';
+    el.textContent = 'Produit libre - sera saisi tel quel';
+    drop.appendChild(el);
+  }
+  drop.classList.add('open');
+}
+
+function getLastProductData(productName) {
+  var clientName = document.getElementById('clientName').value.trim();
+  if (!clientName) return null;
+  for (var i = 0; i < orders.length; i++) {
+    var o = orders[i];
+    if (o.client.toLowerCase() !== clientName.toLowerCase()) continue;
+    for (var j = 0; j < o.lines.length; j++) {
+      if (o.lines[j].n === productName) return o.lines[j];
+    }
+  }
+  return null;
+}
+
+function pickProd(id, catIdx) {
+  var p = CAT[catIdx];
+  document.getElementById('AI' + id).value = p[1];
+  document.getElementById('ASN' + id).textContent = p[1];
+  document.getElementById('ASP' + id).textContent = p[2] ? fmt(p[2]) + '/' + p[3] : 'NC';
+  document.getElementById('AS' + id).style.display = 'block';
+  document.getElementById('AI' + id).style.display = 'none';
+  closeAC(id);
+  if (p[2]) document.getElementById('PR' + id).value = p[2];
+  setU(id, (p[3] === 'pc' || p[3] === 'bt') ? 'pc' : 'kg');
+  // Show history hint if exists
+  var hist = getLastProductData(p[1]);
+  var ph = document.getElementById('PH' + id);
+  if (hist && ph) {
+    document.getElementById('PHN' + id).textContent = hist.qty + ' ' + hist.u + ' x ' + fmt(hist.pr) + '/' + hist.u;
+    document.getElementById('PHD' + id).textContent = fmtD(hist.date || '');
+    ph.dataset.qty = hist.qty;
+    ph.dataset.pr = hist.pr;
+    ph.dataset.u = hist.u;
+    ph.style.display = 'block';
+  } else if (ph) {
+    ph.style.display = 'none';
+  }
+  calcLine(id);
+}
+
+function applyProdHint(id) {
+  var ph = document.getElementById('PH' + id);
+  if (!ph) return;
+  document.getElementById('QT' + id).value = ph.dataset.qty;
+  document.getElementById('PR' + id).value = ph.dataset.pr;
+  setU(id, (ph.dataset.u === 'pc' || ph.dataset.u === 'bt') ? 'pc' : 'kg');
+  calcLine(id);
+  ph.style.display = 'none';
+  toast('Valeurs appliquees');
+}
+
+function clearSel(id) {
+  document.getElementById('AS' + id).style.display = 'none';
+  var inp = document.getElementById('AI' + id);
+  inp.style.display = 'block';
+  inp.value = '';
+  inp.focus();
+  document.getElementById('PR' + id).value = '';
+  calcLine(id);
+}
+
+function closeAC(id) {
+  var d = document.getElementById('AD' + id);
+  if (d) d.classList.remove('open');
+}
+
+// ── LIGNE PRODUIT ──
+function addLine() {
+  lc++;
+  var id = lc;
+  var cutHtml = '';
+  for (var i = 0; i < CUTS.length; i++) {
+    cutHtml += '<label class="copt" id="CO' + id + '_' + CUTS[i][0] + '">'
+      + '<input type="checkbox" id="CB' + id + '_' + CUTS[i][0] + '" value="' + CUTS[i][0] + '" onchange="updateCutLabel(' + id + ')"/>'
+      + '<span>' + CUTS[i][1] + '<small>' + CUTS[i][2] + '</small></span></label>';
+  }
+  var div = document.createElement('div');
+  div.className = 'line';
+  div.id = 'L' + id;
+  div.innerHTML =
+    '<div class="line-hd">'
+    + '<span class="line-num">Produit ' + id + '</span>'
+    + '<button class="btn-rm" onclick="rmLine(' + id + ')">Retirer</button>'
+    + '</div>'
+    + '<label>Produit</label>'
+    + '<div class="ac-wrap" id="AW' + id + '">'
+    + '<div class="ac-selected" id="AS' + id + '" style="display:none" onclick="clearSel(' + id + ')">'
+    + '<div class="ac-sel-name" id="ASN' + id + '"></div>'
+    + '<div class="ac-sel-price" id="ASP' + id + '"></div>'
+    + '<div class="ac-sel-change">Appuyer pour changer</div>'
+    + '<span class="ac-clear" onclick="clearSel(' + id + ')">&#215;</span>'
+    + '</div>'
+    + '<input type="text" id="AI' + id + '" placeholder="Taper pour rechercher..." autocomplete="off" autocorrect="off" autocapitalize="off"/>'
+    + '<div class="ac-results" id="AD' + id + '"></div>'
+    + '</div>'
+    + '<div style="margin-top:8px"><input type="text" id="COMM' + id + '" placeholder="Commentaire sur le produit..." style="width:100%;background:#F7FBFF;border:1.5px solid #C8E6FA;border-radius:8px;color:#0D2A4A;font-size:15px;padding:10px 12px;font-family:Outfit,sans-serif"/></div>'
+    + '<div class="prod-hint" id="PH' + id + '" onclick="applyProdHint(' + id + ')">'
+    + '<div class="prod-hint-label">Derniere commande de ce client</div>'
+    + '<div class="prod-hint-row"><span id="PHN' + id + '"></span><span id="PHD' + id + '"></span></div>'
+    + '<div class="prod-hint-apply">Appuyer pour appliquer &rarr;</div>'
+    + '</div>'
+    + '<div class="qrow">'
+    + '<div><label>Quantite</label><input type="number" id="QT' + id + '" placeholder="0" min="0" step="0.5" oninput="calcLine(' + id + ')"/></div>'
+    + '<div><label>Unite</label><div class="utog">'
+    + '<button class="ubtn active" id="UK' + id + '" onclick="setU('+id+',\'kg\')">kg</button>'
+    + '<button class="ubtn" id="UP' + id + '" onclick="setU('+id+',\'pc\')">pce</button>'
+    + '</div></div>'
+    + '<div><label>Prix HT</label><input type="number" id="PR' + id + '" placeholder="0.00" min="0" step="0.01" oninput="calcLine(' + id + ')"/></div>'
+    + '</div>'
+    + '<div class="sect" id="CT' + id + '" onclick="togCut(' + id + ')">'
+    + '<span>Decoupe</span>'
+    + '<span class="sect-lbl"><small id="CTLBL' + id + '">Choisir les modes de coupe</small></span>'
+    + '<div class="sw"></div>'
+    + '</div>'
+    + '<div class="cut-panel" id="CP' + id + '">'
+    + '<div class="cut-grid">' + cutHtml + '</div>'
+    + '<div class="cut-note"><label>Precision</label><input type="text" id="CN' + id + '" placeholder="Ex: portions 180g..."/></div>'
+    + '</div>'
+    + '<div class="sect" id="SV' + id + '" onclick="togSV(' + id + ')">'
+    + '<span>Sous vide</span>'
+    + '<span class="sect-lbl"><small>Conditionnement sous vide</small></span>'
+    + '<div class="sw"></div>'
+    + '</div>';
+  document.getElementById('lines').appendChild(div);
+  setupAC(id);
+}
+
+function rmLine(id) { var el = document.getElementById('L' + id); if (el) el.remove(); }
+function setU(id, u) { document.getElementById('UK' + id).classList.toggle('active', u === 'kg'); document.getElementById('UP' + id).classList.toggle('active', u === 'pc'); }
+function getU(id) { return document.getElementById('UP' + id).classList.contains('active') ? 'pc' : 'kg'; }
+function togCut(id) { document.getElementById('CT' + id).classList.toggle('active'); document.getElementById('CP' + id).classList.toggle('open'); }
+function togSV(id) {
+  var sv = document.getElementById('SV' + id);
+  var was = sv.classList.contains('active');
+  sv.classList.toggle('active');
+  var pr = document.getElementById('PR' + id);
+  var v = parseFloat(pr.value) || 0;
+  if (v > 0) {
+    if (!was) { pr.value = Math.round((v + 1) * 100) / 100; toast('+1 e/kg (sous vide)'); }
+    else { pr.value = Math.round((v - 1) * 100) / 100; toast('-1 e/kg retire'); }
+  }
+  calcLine(id);
+}
+function updateCutLabel(id) {
+  var sel = [];
+  for (var i = 0; i < CUTS.length; i++) {
+    var cb = document.getElementById('CB' + id + '_' + CUTS[i][0]);
+    if (cb && cb.checked) { sel.push(CUTS[i][1]); document.getElementById('CO' + id + '_' + CUTS[i][0]).classList.add('on'); }
+    else if (cb) document.getElementById('CO' + id + '_' + CUTS[i][0]).classList.remove('on');
+  }
+  document.getElementById('CTLBL' + id).textContent = sel.length ? sel.join(' + ') : 'Choisir les modes de coupe';
+}
+function getSelectedCuts(id) {
+  var s = [];
+  for (var i = 0; i < CUTS.length; i++) { var cb = document.getElementById('CB' + id + '_' + CUTS[i][0]); if (cb && cb.checked) s.push(CUTS[i][0]); }
+  return s;
+}
+function calcLine(id) {
+  var qty = parseFloat(document.getElementById('QT' + id).value) || 0;
+  var pr = parseFloat(document.getElementById('PR' + id).value) || 0;
+}
+
+// ── COMMANDE ──
+function collectLines() {
+  var out = [];
+  var lines = document.querySelectorAll('.line');
+  for (var i = 0; i < lines.length; i++) {
+    var id = lines[i].id.replace('L', '');
+    var sel = document.getElementById('AS' + id);
+    var nom = sel.style.display !== 'none' ? document.getElementById('ASN' + id).textContent : document.getElementById('AI' + id).value.trim();
+    if (!nom) continue;
+    var qty = parseFloat(document.getElementById('QT' + id).value) || 0;
+    var pr = parseFloat(document.getElementById('PR' + id).value) || 0;
+    if (qty <= 0 && pr <= 0) continue;
+    var u = getU(id);
+    var hasCut = document.getElementById('CT' + id).classList.contains('active');
+    var cuts = hasCut ? getSelectedCuts(id) : [];
+    var cnote = hasCut ? document.getElementById('CN' + id).value.trim() : '';
+    var commEl = document.getElementById('COMM' + id);
+    var comm = commEl ? commEl.value.trim() : '';
+    var sv = document.getElementById('SV' + id).classList.contains('active');
+    out.push({ n: nom, qty: qty, pr: pr, tot: qty * pr, u: u, cuts: cuts, cnote: cnote, sv: sv, comm: comm });
+  }
+  return out;
+}
+
+function buildOrder() {
+  var client = document.getElementById('clientName').value.trim();
+  var date = document.getElementById('delivDate').value;
+  if (!client) { toast('Saisissez un nom de client', 1); return null; }
+  if (!date) { toast('Choisissez une date de livraison', 1); return null; }
+  var lines = collectLines();
+  if (!lines.length) { toast('Ajoutez au moins un produit', 1); return null; }
+  var tot = 0;
+  for (var i = 0; i < lines.length; i++) tot += lines[i].tot;
+  return { id: Date.now(), client: client, date: date, lines: lines, total: tot, created: new Date().toLocaleDateString('fr-FR'), status: 'attente' };
+}
+
+function saveOrder() {
+  var o = buildOrder();
+  if (!o) return;
+  orders.unshift(o);
+  save();
+  saveClient(o.client);
+  updateBadge();
+  toast('Commande de ' + o.client + ' enregistree');
+  resetForm();
+}
+
+function mailOrder() {
+  var o = buildOrder();
+  if (!o) return;
+  orders.unshift(o);
+  save();
+  saveClient(o.client);
+  updateBadge();
+  openMail(o);
+  resetForm();
+}
+
+function openMail(o) {
+  var subj = 'Commande ' + o.client + ' - Livraison ' + fmtD(o.date);
+  var sep = '----------------------------------------';
+  var body = 'PARIS CAVIAR - BON DE COMMANDE\n' + sep + '\n\n';
+  body += 'Client    : ' + o.client + '\n';
+  body += 'Livraison : ' + fmtD(o.date) + '\n';
+  body += 'Cree le   : ' + o.created + '\n';
+  body += '\n' + sep + '\n\n';
+  for (var i = 0; i < o.lines.length; i++) {
+    var l = o.lines[i];
+    body += (i + 1) + '. ' + l.n + '\n';
+    body += '   Qte   : ' + l.qty + ' ' + l.u + '\n';
+    body += '   Prix  : ' + fmt(l.pr) + ' / ' + l.u + '\n';
+    if (l.cuts && l.cuts.length) {
+      var cn = [];
+      for (var j = 0; j < l.cuts.length; j++) cn.push(CL[l.cuts[j]] || l.cuts[j]);
+      body += '   Coupe : ' + cn.join(' + ') + '\n';
+    }
+    if (l.cnote) body += '   Note  : ' + l.cnote + '\n';
+    if (l.sv) body += '   Sous vide\n';
+    if (l.comm) body += '   Commentaire : ' + l.comm + '\n';
+    body += '\n';
+  }
+  body += sep + '\n';
+  body += 'Paris Caviar SAS - 56C Allee de Saint-Malo, 94519 Rungis\n';
+  body += 'Tel : 01 41 76 11 81\n\n';
+  body += '>> Confirmer preparation :\n';
+  body += 'https://vins94240.github.io/paris-caviar/?confirm=' + o.id;
+  window.location.href = 'mailto:commandes@paris-caviar.fr?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+  toast('Ouverture mail...', 0, 1);
+}
+
+function resetForm() {
+  document.getElementById('clientName').value = '';
+  document.getElementById('histBanner').style.display = 'none';
+  var d = new Date();
+  d.setDate(d.getDate() + 1);
+  document.getElementById('delivDate').value = d.toISOString().split('T')[0];
+  document.getElementById('lines').innerHTML = '';
+  lc = 0;
+  addLine();
+}
+
+// ── COMMANDES ──
+function showOrders(search) {
+  var q = (search || '').toLowerCase();
+  var c = document.getElementById('orderList');
+  var list = [];
+  for (var i = 0; i < orders.length; i++) if (orders[i].client.toLowerCase().indexOf(q) >= 0) list.push(orders[i]);
+  if (!list.length) { c.innerHTML = '<div class="empty">Aucune commande</div>'; return; }
+  var html = '';
+  for (var i = 0; i < list.length; i++) {
+    var o = list[i];
+    var rows = '';
+    for (var j = 0; j < o.lines.length; j++) {
+      var l = o.lines[j];
+      var tags = '';
+      if (l.cuts && l.cuts.length) { var cn = []; for (var k = 0; k < l.cuts.length; k++) cn.push(CL[l.cuts[k]] || l.cuts[k]); tags += '<span class="tag tcut">' + cn.join(' + ') + (l.cnote ? ' | ' + l.cnote : '') + '</span>'; }
+      if (l.sv) tags += '<span class="tag tsv">Sous vide</span>';
+      if (l.comm) tags += '<span class="tag" style="background:#EBF5FF;color:#5BA3D9">' + l.comm + '</span>';
+      rows += '<div class="oprod"><div class="oprod-row"><span>' + l.n + '</span><span style="color:#8A9BB0">' + l.qty + ' ' + (l.u || 'kg') + '</span><span style="color:#8A9BB0">' + fmt(l.pr) + '</span><span style="color:#E8C96A;font-weight:700">' + fmt(l.tot) + '</span></div>' + (tags ? '<div class="tags">' + tags + '</div>' : '') + '</div>';
+    }
+    var sb = o.status === 'prep' ? 'status-prep' : 'status-attente';
+    var sl = o.status === 'prep' ? 'En preparation' : 'En attente';
+    html += '<div class="ocard">'
+      + '<div class="ocard-hd" onclick="togOrd(' + o.id + ')">'
+      + '<div><div class="oclient">' + o.client + '</div><div class="odate">Livraison: ' + fmtD(o.date) + ' | ' + o.created + '</div></div>'
+      + '<div style="text-align:right"><div class="otot">' + fmt(o.total) + '</div><span class="status-badge ' + sb + '">' + sl + '</span></div>'
+      + '</div>'
+      + '<div class="obody" id="OB' + o.id + '">' + rows
+      + '<div class="oacts">'
+      + '<button class="oact a-copy" onclick="copyOrd(' + o.id + ')">Copier</button>'
+      + '<button class="oact a-mail" onclick="mailOrd(' + o.id + ')">Email</button>'
+      + '<button class="oact a-pdf" onclick="pdfOrd(' + o.id + ')">PDF</button>'
+      + '<button class="oact a-del" onclick="delOrd(' + o.id + ')">Supprimer</button>'
+      + '</div></div></div>';
+  }
+  c.innerHTML = html;
+}
+
+function togOrd(id) { var el = document.getElementById('OB' + id); if (el) el.classList.toggle('open'); }
+function delOrd(id) { var n = []; for (var i = 0; i < orders.length; i++) if (orders[i].id !== id) n.push(orders[i]); orders = n; save(); updateBadge(); showOrders(''); toast('Commande supprimee'); }
+function clearAll() { if (!orders.length) return; if (confirm('Effacer toutes les commandes ?')) { orders = []; save(); updateBadge(); showOrders(''); toast('Tout efface'); } }
+function mailOrd(id) { for (var i = 0; i < orders.length; i++) if (orders[i].id === id) { openMail(orders[i]); return; } }
+function copyOrd(id) {
+  for (var i = 0; i < orders.length; i++) {
+    if (orders[i].id === id) {
+      var o = orders[i];
+      var txt = 'PARIS CAVIAR - ' + o.client + ' - ' + fmtD(o.date) + '\n';
+      for (var j = 0; j < o.lines.length; j++) { var l = o.lines[j]; txt += '* ' + l.n + ' - ' + l.qty + ' ' + l.u + ' x ' + fmt(l.pr) + '\n'; }
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function() { toast('Copie!'); });
+      return;
+    }
+  }
+}
+
+// ── PDF ──
+function pdfFromOrder(o) {
+  var lines = '';
+  for (var i = 0; i < o.lines.length; i++) {
+    var l = o.lines[i];
+    var cuts = '';
+    if (l.cuts && l.cuts.length) {
+      var cn = [];
+      for (var j = 0; j < l.cuts.length; j++) cn.push(CL[l.cuts[j]] || l.cuts[j]);
+      cuts = cn.join(' + ');
+    }
+    var tags = '';
+    if (cuts) tags += '<span style="display:inline-block;background:#FFF0F0;color:#C0392B;font-size:20px;padding:6px 16px;border-radius:8px;font-weight:700;margin-top:6px;margin-right:4px;border:2px solid #FFCDD2">' + cuts + '</span>';
+    if (l.sv) tags += '<span style="display:inline-block;background:#D4EDFF;color:#1A6FA0;font-size:13px;padding:3px 10px;border-radius:6px;font-weight:700;margin-top:5px;margin-right:4px">Sous vide</span>';
+    if (l.cnote) tags += '<div style="font-size:13px;color:#8A9BB0;margin-top:4px">' + l.cnote + '</div>';
+    var bg = i % 2 === 0 ? '#fff' : '#F7FBFF';
+    lines += '<tr style="background:' + bg + '; border-bottom:1px solid #E8F4FD">'
+      + '<td style="padding:14px 16px;vertical-align:top">'
+      + '<div style="font-size:16px;font-weight:700;color:#0D2A4A">' + l.n + '</div>'
+      + (tags ? '<div style="margin-top:4px">' + tags + '</div>' : '')
+      + '</td>'
+      + '<td style="padding:14px 16px;font-size:16px;color:#5BA3D9;font-weight:600;white-space:nowrap;vertical-align:top">' + l.qty + ' ' + l.u + '</td>'
+      + '<td style="padding:14px 16px;font-size:16px;font-weight:700;color:#0D2A4A;white-space:nowrap;vertical-align:top">' + fmt(l.pr) + '/' + l.u + '</td>'
+      + '</tr>';
+  }
+
+  var logo = 'https://vins94240.github.io/paris-caviar/logo.jpg';
+
+  var h = '<!DOCTYPE html><html><head><meta charset="UTF-8"/>'
+    + '<title>Commande ' + o.client + '</title>'
+    + '<style>'
+    + '*{box-sizing:border-box;margin:0;padding:0}'
+    + 'body{font-family:Outfit,Arial,sans-serif;background:#F0F6FF;color:#0D2A4A}'
+    + '.page{max-width:800px;margin:0 auto;background:#fff;box-shadow:0 4px 20px rgba(13,42,74,.1)}'
+    + '@media print{body{background:#fff}.np{display:none}.page{box-shadow:none}}'
+    + '</style></head><body>'
+
+    + '<div class="np" style="background:#0D2A4A;padding:14px 24px;display:flex;justify-content:space-between;align-items:center">'
+    + '<span style="color:#A8D4F5;font-weight:700;font-size:16px;font-family:Outfit,sans-serif">Bon de commande Paris Caviar</span>'
+    + '<div style="display:flex;gap:10px">'
+    + '<button onclick="window.print()" style="background:#5BA3D9;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif">Imprimer / PDF</button>'
+    + '<button onclick="window.close()" style="background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);padding:9px 20px;border-radius:8px;font-size:14px;cursor:pointer;font-family:Outfit,sans-serif">Fermer</button>'
+    + '</div></div>'
+
+    + '<div class="page">'
+
+    + '<div style="background:#0D2A4A;padding:22px 28px;display:flex;align-items:center;gap:18px">'
+    + '<img src="' + logo + '" style="width:66px;height:66px;object-fit:contain;background:#fff;border-radius:8px;padding:5px"/>'
+    + '<div>'
+    + '<div style="color:#A8D4F5;font-size:26px;font-weight:700;letter-spacing:.02em">PARIS CAVIAR</div>'
+    + '<div style="color:#A8C8E8;font-size:13px;margin-top:4px">Marche International de Rungis &nbsp;|&nbsp; commandes@paris-caviar.fr &nbsp;|&nbsp; 01 41 76 11 81</div>'
+    + '</div></div>'
+
+    + '<div style="background:#EBF5FF;padding:18px 28px;display:flex;gap:40px;border-bottom:3px solid #C8E6FA">'
+    + '<div><div style="font-size:11px;font-weight:700;color:#5BA3D9;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Client</div>'
+    + '<div style="font-size:20px;font-weight:700;color:#0D2A4A">' + o.client + '</div></div>'
+    + '<div><div style="font-size:11px;font-weight:700;color:#5BA3D9;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Livraison</div>'
+    + '<div style="font-size:20px;font-weight:700;color:#0D2A4A">' + fmtD(o.date) + '</div></div>'
+    + '<div><div style="font-size:11px;font-weight:700;color:#5BA3D9;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Cree le</div>'
+    + '<div style="font-size:16px;color:#0D2A4A">' + o.created + '</div></div>'
+    + '</div>'
+
+    + '<table style="width:100%;border-collapse:collapse">'
+    + '<thead><tr style="background:#0D2A4A">'
+    + '<th style="padding:12px 16px;text-align:left;color:#A8D4F5;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700">Produit</th>'
+    + '<th style="padding:12px 16px;text-align:left;color:#A8D4F5;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700">Quantite</th>'
+    + '<th style="padding:12px 16px;text-align:left;color:#A8D4F5;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700">Prix HT</th>'
+    + '</tr></thead>'
+    + '<tbody>' + lines + '</tbody>'
+    + '</table>'
+
+    + '<div style="background:#0D2A4A;padding:16px 28px;text-align:center">'
+    + '<div style="color:#A8C8E8;font-size:12px">Paris Caviar SAS &nbsp;|&nbsp; 56C Allee de Saint-Malo, 94519 Rungis Cedex &nbsp;|&nbsp; SIREN 420 389 983</div>'
+    + '</div>'
+
+    + '</div></body></html>';
+
+  var w = window.open('', '_blank', 'width=900,height=750');
+  if (w) { w.document.write(h); w.document.close(); }
+  else { toast('Autorisez les popups', 1); }
+}
+
+function pdfOrder() { var o = buildOrder(); if (!o) return; pdfFromOrder(o); }
+function pdfOrd(id) { for (var i = 0; i < orders.length; i++) if (orders[i].id === id) { pdfFromOrder(orders[i]); return; } }
+
+// ── TARIFS ──
+function buildTarif() { showTarif(''); }
+function showTarif(search) {
+  var q = (search || '').toLowerCase();
+  var groups = {}, order = [];
+  for (var i = 0; i < CAT.length; i++) {
+    var p = CAT[i];
+    if (!q || p[1].toLowerCase().indexOf(q) >= 0 || p[0].toLowerCase().indexOf(q) >= 0) {
+      if (!groups[p[0]]) { groups[p[0]] = []; order.push(p[0]); }
+      groups[p[0]].push(p);
+    }
+  }
+  var c = document.getElementById('tarifList');
+  if (!order.length) { c.innerHTML = '<div class="empty">Aucun produit</div>'; return; }
+  var html = '';
+  for (var i = 0; i < order.length; i++) {
+    var g = order[i];
+    html += '<div class="tgroup"><div class="tgroup-title">' + g + '</div>';
+    for (var j = 0; j < groups[g].length; j++) {
+      var p = groups[g][j];
+      var ci = CAT.indexOf(p);
+      html += '<div class="titem">'
+        + '<span class="tname">' + p[1] + '</span>'
+        + '<span class="tunit">' + p[3] + '</span>'
+        + (p[2] ? '<span class="tprice">' + fmt(p[2]) + '</span>' : '<span class="tnc">NC</span>')
+        + '<button class="tadd" onclick="addFromTarif(' + ci + ')">+</button>'
+        + '</div>';
+    }
+    html += '</div>';
+  }
+  c.innerHTML = html;
+}
+
+function addFromTarif(ci) {
+  var p = CAT[ci];
+  if (!p) return;
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.page').forEach(function(pg) { pg.classList.remove('active'); });
+  document.getElementById('page-new').classList.add('active');
+  document.querySelectorAll('.tab')[0].classList.add('active');
+  // Use first empty line if exists, else add new
+  var id = null;
+  var lines = document.querySelectorAll('.line');
+  for (var i = 0; i < lines.length; i++) {
+    var lid = lines[i].id.replace('L', '');
+    var sel = document.getElementById('AS' + lid);
+    var inp = document.getElementById('AI' + lid);
+    if (sel && sel.style.display === 'none' && inp && !inp.value.trim()) {
+      id = lid; break;
+    }
+  }
+  if (!id) { addLine(); id = lc; }
+  document.getElementById('AI' + id).value = p[1];
+  document.getElementById('ASN' + id).textContent = p[1];
+  document.getElementById('ASP' + id).textContent = p[2] ? fmt(p[2]) + '/' + p[3] : 'NC';
+  document.getElementById('AS' + id).style.display = 'block';
+  document.getElementById('AI' + id).style.display = 'none';
+  if (p[2]) document.getElementById('PR' + id).value = p[2];
+  setU(id, (p[3] === 'pc' || p[3] === 'bt') ? 'pc' : 'kg');
+  calcLine(id);
+  toast(p[1] + ' ajoute');
+}
+
+// ── NAVIGATION ──
+function goTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('page-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'list') showOrders('');
+}
+
+// ── PROMOS ──
+var ADMIN_PIN = '1234';
+var PROMOS_URL = 'https://script.google.com/macros/s/AKfycbx6CFniJ6_S8TYWbsSaUztqMjasGsnAtKnLCAelCiP_w7Lc6Xo-ozuyVQpFjXeQDWw5Aw/exec';
+function loadPromos() { try { return JSON.parse(localStorage.getItem('pc_promos') || '[]'); } catch(e) { return []; } }
+function loadPromosRemote(cb) {
+  fetch(PROMOS_URL)
+    .then(function(r) { return r.json(); })
+    .then(function(data) { localStorage.setItem('pc_promos', JSON.stringify(data)); cb(data); })
+    .catch(function() { cb(loadPromos()); });
+}
+
+function showPromoPopup() {
+  loadPromosRemote(function(promos) { renderPromoPopup(promos); });
+}
+function renderPromoPopup(promos) {
+  var promos = promos || loadPromos();
+  var ov = document.getElementById('promoOverlay');
+  if (!ov) return;
+  document.getElementById('promoDate').textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+  var list = document.getElementById('promoList');
+  if (!promos.length) {
+    list.innerHTML = '<div style="padding:20px;text-align:center;color:#A8C8E8;font-size:14px">Aucune promo pour aujourd hui</div>';
+  } else {
+    var html = '';
+    for (var i = 0; i < promos.length; i++) {
+      html += '<div onclick="addPromoLine(' + i + ')" style="background:#fff;border:1.5px solid #C8E6FA;border-radius:10px;padding:12px 14px;margin:8px 12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center">'
+        + '<div style="flex:1"><div style="font-size:15px;font-weight:700;color:#0D2A4A">' + promos[i].n + '</div>'
+        + (promos[i].note ? '<div style="font-size:12px;color:#5BA3D9;margin-top:3px">' + promos[i].note + '</div>' : '') + '</div>'
+        + (promos[i].pr ? '<div style="background:#0D2A4A;color:#C9A84C;font-size:14px;font-weight:700;padding:6px 12px;border-radius:8px;white-space:nowrap;margin-left:12px">' + fmt(promos[i].pr) + '/kg</div>' : '')
+        + '</div>';
+    }
+    list.innerHTML = html;
+  }
+  ov.style.display = 'flex';
+  updatePromosBanner();
+}
+
+function closePromo() { document.getElementById('promoOverlay').style.display = 'none'; }
+
+function addPromoLine(idx) {
+  var promos = loadPromos();
+  var p = promos[idx];
+  if (!p) return;
+  var id = null;
+  var lines = document.querySelectorAll('.line');
+  for (var i = 0; i < lines.length; i++) {
+    var lid = lines[i].id.replace('L', '');
+    var sel = document.getElementById('AS' + lid);
+    var inp = document.getElementById('AI' + lid);
+    if (sel && sel.style.display === 'none' && inp && !inp.value.trim()) { id = lid; break; }
+  }
+  if (!id) { addLine(); id = lc; }
+  document.getElementById('ASN' + id).textContent = p.n;
+  document.getElementById('ASP' + id).textContent = p.pr ? fmt(p.pr) + '/kg' : '';
+  document.getElementById('AS' + id).style.display = 'block';
+  document.getElementById('AI' + id).style.display = 'none';
+  document.getElementById('AI' + id).value = p.n;
+  if (p.pr) document.getElementById('PR' + id).value = p.pr;
+  calcLine(id);
+  closePromo();
+  toast(p.n + ' ajoute');
+}
+
+function updatePromosBanner() {
+  var promos = loadPromos();
+  var banner = document.getElementById('promosBanner');
+  var list = document.getElementById('promosBannerList');
+  var dots = document.getElementById('promosDots');
+  if (!banner) return;
+  if (!promos.length) { banner.style.display = 'none'; return; }
+  banner.style.display = 'block';
+  var html = '';
+  for (var i = 0; i < promos.length; i++) {
+    html += '<div onclick="addPromoLine(' + i + ')" style="background:#fff;border:1.5px solid #C8E6FA;border-radius:12px;padding:14px 16px;cursor:pointer;flex-shrink:0;min-width:160px;max-width:160px;scroll-snap-align:start;box-shadow:0 2px 8px rgba(13,42,74,.08);display:flex;flex-direction:column;justify-content:space-between;gap:8px">'
+      + '<div style="font-size:14px;font-weight:700;color:#0D2A4A;line-height:1.3">' + promos[i].n + '</div>'
+      + (promos[i].pr ? '<div style="background:#0D2A4A;color:#A8D4F5;font-size:16px;font-weight:700;padding:6px 10px;border-radius:8px;text-align:center">' + promos[i].pr.toFixed(2).replace('.',',') + ' /kg</div>' : '')
+      + '<div style="font-size:11px;color:#A8C8E8;text-align:center">Appuyer pour ajouter</div>'
+      + '</div>';
+  }
+  list.innerHTML = html;
+  if (dots) {
+    var dhtml = '';
+    for (var j = 0; j < promos.length; j++) {
+      dhtml += '<div style="width:6px;height:6px;border-radius:50%;background:' + (j === 0 ? '#0D2A4A' : '#C8E6FA') + '"></div>';
+    }
+    dots.innerHTML = dhtml;
+    list.onscroll = function() {
+      var idx = Math.round(list.scrollLeft / 170);
+      var ds = dots.children;
+      for (var k = 0; k < ds.length; k++) ds[k].style.background = k === idx ? '#0D2A4A' : '#C8E6FA';
+    };
+  }
+}
+function openAdmin() {
+  closePromo();
+  document.getElementById('adminOverlay').style.display = 'flex';
+  document.getElementById('adminPinBox').style.display = 'block';
+  document.getElementById('adminEditBox').style.display = 'none';
+  document.getElementById('adminPin').value = '';
+}
+
+function checkPin() {
+  if (document.getElementById('adminPin').value === ADMIN_PIN) {
+    document.getElementById('adminPinBox').style.display = 'none';
+    document.getElementById('adminEditBox').style.display = 'block';
+    renderAdminRows();
+  } else { toast('Code incorrect', 1); }
+}
+
+function renderAdminRows() {
+  var promos = loadPromos();
+  var html = '';
+  for (var i = 0; i < promos.length; i++) html += adminRow(promos[i].n, promos[i].pr);
+  if (!promos.length) html = adminRow('', 0);
+  document.getElementById('adminRows').innerHTML = html;
+}
+
+function adminRow(n, pr) {
+  return '<div class="arow" style="display:grid;grid-template-columns:2fr 1fr auto;gap:6px;margin-bottom:8px;align-items:center">'
+    + '<input class="pn" type="text" placeholder="Produit" value="' + n + '" style="font-size:14px;padding:8px 10px;background:#F7FBFF;border:1.5px solid #C8E6FA;border-radius:8px;color:#0D2A4A;font-family:sans-serif"/>'
+    + '<input class="pp" type="number" placeholder="Prix" value="' + (pr || '') + '" step="0.1" style="font-size:14px;padding:8px 10px;background:#F7FBFF;border:1.5px solid #C8E6FA;border-radius:8px;color:#0D2A4A;font-family:sans-serif"/>'
+    + '<button onclick="this.parentElement.remove()" style="background:#FFF0F0;border:1.5px solid #FFCDD2;border-radius:8px;color:#E05252;font-size:18px;font-weight:700;width:36px;height:36px;cursor:pointer;font-family:sans-serif">x</button>'
+    + '</div>';
+}
+
+function parseWhatsapp() {
+  var txt = document.getElementById('adminPaste').value;
+  if (!txt.trim()) { toast('Colle le texte WhatsApp dabord', 1); return; }
+  var lines = txt.split('\n');
+  var promos = [];
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (!line) continue;
+    if (line.indexOf('*') < 0 && line.indexOf('-') < 0 && line.indexOf('\u2022') < 0) continue;
+    line = line.replace(/^[*\u2022]\s*/, '').trim();
+    line = line.replace(/^-\s*/, '').trim();
+    if (!line) continue;
+    var priceMatch = line.match(/(\d+[,.]\d+|\d+)\s*\u20ac/);
+    var price = 0;
+    if (priceMatch) {
+      price = parseFloat(priceMatch[1].replace(',', '.'));
+      line = line.replace(/[\u2014\u2013-]+\s*\d+[,.]?\d*\s*\u20ac[^\n]*/g, '').trim();
+      line = line.replace(/\d+[,.]?\d*\s*\u20ac[^\n]*/g, '').trim();
+      line = line.replace(/[\u2014\u2013-]+\s*$/, '').trim();
+    }
+    if (line) promos.push({n: line, pr: price, note: ''});
+  }
+  if (!promos.length) { toast('Aucun produit trouve', 1); return; }
+  var html = '';
+  for (var j = 0; j < promos.length; j++) html += adminRow(promos[j].n, promos[j].pr);
+  document.getElementById('adminRows').innerHTML = html;
+  document.getElementById('adminPaste').value = '';
+  toast(promos.length + ' produits importes !');
+}
+function addPromoRow() { var d = document.createElement('div'); d.innerHTML = adminRow('', 0); document.getElementById('adminRows').appendChild(d.firstChild); }
+
+function savePromos() {
+  var rows = document.querySelectorAll('#adminRows .arow');
+  var promos = [];
+  rows.forEach(function(r) {
+    var n = r.querySelector('.pn').value.trim();
+    var pr = parseFloat(r.querySelector('.pp').value) || 0;
+    if (n) promos.push({n: n, pr: pr, note: ''});
+  });
+  localStorage.setItem('pc_promos', JSON.stringify(promos));
+  fetch(PROMOS_URL, {method: 'POST', body: JSON.stringify({promos: promos})})
+    .then(function() { toast('Promos sauvegardees pour tous !'); })
+    .catch(function() { toast('Sauvegarde locale uniquement', 1); });
+  closeAdmin();
+  showPromoPopup();
+}
+
+function closeAdmin() { document.getElementById('adminOverlay').style.display = 'none'; }
+
+// ── CONFIRM ──
+function confirmOrder(orderId) {
+  var id = parseInt(orderId);
+  for (var i = 0; i < orders.length; i++) { if (orders[i].id === id) { orders[i].status = 'prep'; save(); break; } }
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('page-list').classList.add('active');
+  document.querySelectorAll('.tab')[1].classList.add('active');
+  showOrders('');
+  toast('Commande en preparation !', 0, 1);
+}
+
+function checkUrlConfirm() {
+  var url = window.location.search;
+  if (url.indexOf('confirm=') >= 0) {
+    var id = url.split('confirm=')[1].split('&')[0];
+    if (id) confirmOrder(id);
+  }
+}
+
+// ── INIT ──
+window.onload = function() {
+  checkUrlConfirm();
+  loadPromosRemote(function(promos){
+    renderPromoPopup(promos);
+    updatePromosBanner();
+  });
+  var d = new Date();
+  d.setDate(d.getDate() + 1);
+  document.getElementById('delivDate').value = d.toISOString().split('T')[0];
+  addLine();
+  updateBadge();
+  buildTarif();
+  document.addEventListener('touchstart', function(e) { if (!e.target.closest('#CAC')) document.getElementById('CAC_DROP').classList.remove('open'); }, { passive: true });
+  document.addEventListener('mousedown', function(e) { if (!e.target.closest('#CAC')) document.getElementById('CAC_DROP').classList.remove('open'); });
+};
+
+</script>
+</body>
+</html>
